@@ -16,7 +16,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Ionicons -->
         <link rel="stylesheet" href="resource/Plantilla/Ionicons/css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="resource/Plantilla/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="resource/Plantilla/dist/css/AdminLTE.css">
+        <link rel="stylesheet" href="resource/dist/css/style.css">
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
               page. However, you can choose any other skin. Make sure you
               apply the skin class to the body tag so the changes take effect. -->
@@ -31,7 +32,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Google Font -->
         <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        
+        <!-- REQUIRED JS SCRIPTS -->
+
+        <!-- jQuery 3 -->
+        <script src="resource/Plantilla/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="resource/Plantilla/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="resource/Plantilla/dist/js/adminlte.min.js"></script>
+        <script src="resource/dist/js/style.js"></script>
     </head>
     <!--
     BODY TAG OPTIONS:
@@ -53,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |---------------------------------------------------------|
     -->
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition fixed skin-blue sidebar-mini">
         <div class="wrapper">
 
             <!-- Main Header -->
@@ -160,28 +171,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </aside>
 
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                       Título
-                        <!--<small>Optional description</small>-->
-                    </h1>
-                    <!--<ol class="breadcrumb">
-                      <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                      <li class="active">Here</li>
-                    </ol>-->
-                </section>
+            <div class="content-wrapper" id="containPages">
 
-                <!-- Main content -->
-                <section class="content container-fluid">
-
-                    <!--------------------------
-                    | Your Page Content Here |
-                    -------------------------->
-
-                </section>
-                <!-- /.content -->
+                <?php
+                include './MVC/View/Configure/configure.php';
+                ?>
             </div>
             <!-- /.content-wrapper -->
 
@@ -197,14 +191,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <!-- ./wrapper -->
 
-        <!-- REQUIRED JS SCRIPTS -->
-
-        <!-- jQuery 3 -->
-        <script src="resource/Plantilla/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="resource/Plantilla/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="resource/Plantilla/dist/js/adminlte.min.js"></script>
+        
 
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the
