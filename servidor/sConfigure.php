@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__."/../init.php";
 
-include_once '../MVC/Model/ConfiguracionDaoImp.php';
+include_once SITE_ROOT . '/MVC/Model/ConfiguracionDaoImp.php';
+include_once SITE_ROOT . '/MVC/Controller/JsonMapper.php';
 
-include_once '../MVC/Controller/JsonMapper.php';
 $accion = $_POST["accion"];
 $op = $_POST["op"];
 $mapper = new JsonMapper();
@@ -30,7 +31,7 @@ switch ($accion) {
                     "Mensaje" => "Registrado Correctamente"
                 ));
                 break;
-            case "logo":
+            case "updateLogo":
                 $imagen = $_FILES["imagen"];
                 $name = $imagen["name"];
                 $tmp_name = $imagen["tmp_name"];
@@ -40,8 +41,15 @@ switch ($accion) {
                 if ($destino != "" and ! is_dir($destino)) {
                     mkdir($destino, 0775);
                 }
+                $destino = $destino . "\\" . $name;
 
-                move_uploaded_file($tmp_name, $destino . "\\" .$name);
+                if (move_uploaded_file($tmp_name, $destino)) {
+                    $destino = "resource/ConfigIMG/" . $name;
+                    ConfiguracionDaoImp::updateLogo($destino);
+                }
+
+
+
                 break;
         }
         break;

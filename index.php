@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+require_once "init.php";
+include_once 'MVC/Model/ConfiguracionDaoImp.php';
+
+$datos = ConfiguracionDaoImp::get()[0];
+?>
+
 <!--
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
@@ -32,8 +39,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Google Font -->
         <link rel="stylesheet"
-           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-        
+              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
         <!-- REQUIRED JS SCRIPTS -->
 
         <!-- jQuery 3 -->
@@ -75,7 +82,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>A</b>LT</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Brau</b>Pe<b>Comp</b></span>
+                    <!--<span class="logo-lg"><b>Brau</b>Pe<b>Comp</b></span>-->
+                    <span class="logo-lg"><?php echo $datos["nombre"]; ?></span>
                 </a>
 
                 <!-- Header Navbar -->
@@ -92,17 +100,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
-                                    <img src="resource/Plantilla/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+
+                                    <img src="<?php echo $datos["logo"]; ?>" class="user-image" alt="User Image">
+                                    <!--<img src="resource/Plantilla/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">-->
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs">Kebryan</span>
+                                    <span class="hidden-xs">Braulio</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="resource/Plantilla/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                        <img src="<?php echo $datos["logo"]; ?>" class="img-circle" alt="User Image">
 
                                         <p>
-                                            Kebryan - Web Developer
+                                            Braulio - Admin
                                             <!--<small>Member since Nov. 2012</small>-->
                                         </p>
                                     </li>
@@ -130,12 +140,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="resource/Plantilla/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <img src="<?php echo $datos["logo"]; ?>" width="160"  alt="User Image">
                         </div>
                         <div class="pull-left info">
                             <p>Kebryan</p>
                             <!-- Status -->
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
                         </div>
                     </div>
 
@@ -191,7 +201,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <!-- ./wrapper -->
 
-        
+
 
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the

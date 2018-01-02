@@ -1,9 +1,12 @@
 <?php
 
-include_once '../MVC/Controller/C_MySQL.php';
-include_once '../MVC/Controller/Entidad/Configuracion.php';
+include_once SITE_ROOT . '/MVC/Controller/C_MySQL.php';
+include_once SITE_ROOT . '/MVC/Controller/Entidad/Configuracion.php';
+//include_once '../MVC/Controller/C_MySQL.php';
+//include_once '../MVC/Controller/Entidad/Configuracion.php';
 
 class ConfiguracionDaoImp {
+
     public static function save($config) {
         $conn = (new C_MySQL())->open();
         $sql = "";
@@ -19,6 +22,7 @@ class ConfiguracionDaoImp {
         }
         $conn->close();
     }
+
     public static function get() {
         $conn = (new C_MySQL())->open();
         $sql = "select * from configuracion;";
@@ -27,4 +31,12 @@ class ConfiguracionDaoImp {
         $conn->close();
         return $list;
     }
+
+    public static function updateLogo($destino) {
+        $conn = (new C_MySQL())->open();
+        $sql = "update configuracion set logo ='" . $destino . "';";
+        $conn->query($sql);
+        $conn->close();
+    }
+
 }

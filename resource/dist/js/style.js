@@ -2,6 +2,7 @@ $(function () {
     $(document).on("submit", "form[save]", function (e) {
         e.preventDefault();
         datos = {};
+        console.log(new FormData($(this)[0]));
         if (typeof window.getDatos === 'function') {
             datos = getDatos();
         } else {
@@ -10,10 +11,13 @@ $(function () {
                 dt: {
                     accion: "save",
                     op: $(this).attr("role"),
-                    datos: $(this).serializeObject()
+                    datos: $(this).serializeObject(),
+                    data_form: (new FormData($(this)[0]))
                 }
             };
         }
+        
+        console.log(datos);
         save_global(datos);
     });
 });

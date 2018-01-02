@@ -19,7 +19,7 @@
     <div class="tab-content">
         <div id="menu1" class="tab-pane fade in active">
             <br>
-            <form save action="servidor/sConfigure.php" role="configuracion">
+            <form save action="servidor/sConfigure.php" role="configuracion" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -73,6 +73,8 @@
                         </div>
                     </div>
                 </div>
+                
+                <input id="imagen2" name="imagen" type="file">
 
             </form>
         </div>
@@ -108,8 +110,11 @@
     $("#imagen").fileinput({
         uploadUrl: "servidor/sConfigure.php",
         language: 'es',
+        uploadExtraData: {
+            accion: "save",
+            op: "updateLogo"
+        },
         allowedFileExtensions: ['png', 'jpg']
 
     });
-
 </script>

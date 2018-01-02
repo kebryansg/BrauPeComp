@@ -10,11 +10,11 @@ class Configuracion extends ModelSQL {
     public $Telefono;
     public $Celular;
     public $Email;
-    public $Logo;
+    //public $Logo;
 
     function __construct() {
         $this->Id = 0;
-        $this->Logo = "";
+        //$this->Logo = "";
         $this->tabla = "configuracion";
     }
 }
