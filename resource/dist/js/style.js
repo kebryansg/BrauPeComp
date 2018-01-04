@@ -1,8 +1,42 @@
+var selections = [];
+var TablePaginationDefault = {
+    height: 400,
+    pageSize: 5,
+    search: true,
+    pageList: [5, 10, 15, 20],
+    cache: false,
+    pagination: true,
+    sidePagination: "server"
+};
 $(function () {
+    /* Menú */
+
+    $(".sidebar a").click(function (e) {
+        e.preventDefault();
+        url = $(this).attr("href");
+        if (url !== "#") {
+            $("#containPages").load(url);
+            // Estilo
+            $(".sidebar li").removeClass("active");
+            $(this).closest("li").addClass("active");
+        }
+    });
+
+
+    $(document).on("click", "button[name='btn_add']", function (e) {
+        showRegistro();
+    });
+    $(document).on("click", "form[save] button[type='reset']", function (e) {
+        if ($(this).closest(".modal-body").length > 0) {
+            $(this).closest(".modal").modal("hide");
+        } else {
+            hideRegistro();
+        }
+    });
+
     $(document).on("submit", "form[save]", function (e) {
         e.preventDefault();
         datos = {};
-        console.log(new FormData($(this)[0]));
         if (typeof window.getDatos === 'function') {
             datos = getDatos();
         } else {
@@ -11,14 +45,14 @@ $(function () {
                 dt: {
                     accion: "save",
                     op: $(this).attr("role"),
-                    datos: $(this).serializeObject(),
-                    data_form: (new FormData($(this)[0]))
+                    datos: $(this).serializeObject()
                 }
             };
         }
-        
-        console.log(datos);
         save_global(datos);
+        $(table).bootstrapTable("refresh");
+        $(this).trigger("reset");
+        hideRegistro();
     });
 });
 
@@ -55,3 +89,46 @@ $.fn.serializeObject = function () {
     });
     return JSON.stringify(o);
 };
+
+function getJson(params) {
+    result = {};
+    $.ajax({
+        url: params.url,
+        async: false,
+        type: 'POST',
+        dataType: 'json',
+        data: params.data,
+        success: function (response) {
+            result = response;
+        }
+    });
+    return result;
+}
+
+function responseHandler(res) {
+    $.each(res.rows, function (i, row) {
+        row.state = $.inArray(row.ID, selections) !== -1;
+    });
+    return res;
+}
+
+function showRegistro() {
+    $("div[Listado]").fadeOut();
+    $("div[Listado]").addClass("hidden");
+
+    $("div[Registro]").fadeIn("slow");
+    $("div[Registro]").removeClass("hidden");
+}
+
+function hideRegistro() {
+    $("div[Registro]").fadeOut();
+    $("div[Registro]").addClass("hidden");
+    if ($("div[Registro] table").length > 0) {
+        $("div[Registro] table").bootstrapTable("removeAll");
+    }
+    $("div[Listado]").fadeIn("slow");
+    $("div[Listado]").removeClass("hidden");
+    $("div[Registro] form").removeData("id");
+}
+
+

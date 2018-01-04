@@ -18,6 +18,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="resource/Plantilla/bootstrap/dist/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="resource/table/bootstrap-table.min.css">
+
         <!-- Font Awesome -->
         <link rel="stylesheet" href="resource/Plantilla/font-awesome/css/font-awesome.min.css">
         <!-- Ionicons -->
@@ -47,9 +50,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="resource/Plantilla/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="resource/Plantilla/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- BootStrapTable -->
+        <script src="resource/table/bootstrap-table.min.js"></script>
+        <script src="resource/table/locale/bootstrap-table-es-ES.min.js"></script>
         <!-- AdminLTE App -->
-        <script src="resource/Plantilla/dist/js/adminlte.min.js"></script>
+        <script src="resource/Plantilla/dist/js/adminlte.js"></script>
         <script src="resource/dist/js/style.js"></script>
+        <script src="resource/dist/js/loads.js"></script>
     </head>
     <!--
     BODY TAG OPTIONS:
@@ -153,18 +160,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">Navegación Principal</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class="active">
-                            <a href="#">
+                        <li >
+                            <a href="MVC/View/Configure/configure.php">
                                 <i class="fa fa-gears"></i> <span>Configuración</span>
                             </a>
                         </li>
                         <li >
-                            <a href="#">
+                            <a href="MVC/View/Client/cliente.php">
                                 <i class="fa fa-users"></i> <span>Clientes</span>
                             </a>
                         </li>
+                        <li >
+                            <a href="MVC/View/Product/producto.php">
+                                <i class="fa fa-product-hunt"></i> <span>Productos</span>
+                            </a>
+                        </li>
+                        <li >
+                            <a href="MVC/View/Product/producto.php">
+                                <i class="fa fa-file-archive-o"></i> <span>Proformas</span>
+                            </a>
+                        </li>
                         <li class="treeview">
-                            <a href="#"><i class="fa fa-file-archive-o"></i> <span>Proformas</span>
+                            <a href="#"><i class="fa fa-folder-open"></i> <span>Reportes</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
@@ -184,7 +201,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="content-wrapper" id="containPages">
 
                 <?php
-                include './MVC/View/Configure/configure.php';
+                    include './MVC/View/Product/producto.php';
                 ?>
             </div>
             <!-- /.content-wrapper -->
