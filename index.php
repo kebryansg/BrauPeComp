@@ -55,6 +55,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="resource/table/locale/bootstrap-table-es-ES.min.js"></script>
         <!-- AdminLTE App -->
         <script src="resource/Plantilla/dist/js/adminlte.js"></script>
+        <script src="resource/Moment/moment.js"></script>
+        <script src="resource/Moment/moment-with-locales.js"></script>
         <script src="resource/dist/js/style.js"></script>
         <script src="resource/dist/js/loads.js"></script>
     </head>
@@ -176,7 +178,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
                         <li >
-                            <a href="MVC/View/Product/producto.php">
+                            <a href="MVC/View/Proform/proforma.php">
                                 <i class="fa fa-file-archive-o"></i> <span>Proformas</span>
                             </a>
                         </li>
@@ -201,7 +203,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="content-wrapper" id="containPages">
 
                 <?php
-                    include './MVC/View/Product/producto.php';
+                    include './MVC/View/Proform/proforma.php';
                 ?>
             </div>
             <!-- /.content-wrapper -->

@@ -28,6 +28,7 @@
                     <th data-field="identificacion">Identificación</th>
                     <th data-field="telefono">Teléfono</th>
                     <th data-field="celular">Celular</th>
+                    <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultBtnAccion" >Acción</th>
                 </tr>
             </thead>
         </table>

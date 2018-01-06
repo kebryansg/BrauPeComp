@@ -54,6 +54,37 @@ $(function () {
         $(this).trigger("reset");
         hideRegistro();
     });
+    
+    $(document).on("click", "button[name='btn_del_individual']", function (e) {
+        div_id = $(this).closest("div[toolbar]").attr("id");
+
+        //alert(div_id);
+        tableSelect = $("table[data-toolbar='#" + div_id + "']");
+        deleteIndividual(tableSelect);
+    });
+    
+    
+    var dropdownMenu;
+    $(window).on('show.bs.dropdown', function (e) {
+        if (!$.isEmptyObject($(e.target).attr("name"))) {
+            dropdownMenu = $(e.target).find('.dropdown-menu');
+            $('body').append(dropdownMenu.detach());
+            var eOffset = $(e.target).offset();
+            dropdownMenu.css({
+                'display': 'block',
+                'top': eOffset.top + $(e.target).outerHeight(),
+                'left': eOffset.left + $(e.target).outerWidth() - $(dropdownMenu).width()
+            });
+        }
+    });
+    $(window).on('hide.bs.dropdown', function (e) {
+        if (!$.isEmptyObject(dropdownMenu)) {
+            $(e.target).append(dropdownMenu.detach());
+            dropdownMenu.hide();
+            dropdownMenu = null;
+        }
+    });
+    
 });
 
 
@@ -129,6 +160,25 @@ function hideRegistro() {
     $("div[Listado]").fadeIn("slow");
     $("div[Listado]").removeClass("hidden");
     $("div[Registro] form").removeData("id");
+}
+
+function defaultBtnAccion(value, rowData, index) {
+    return '<div class="btn-group" name="shows">' +
+            '<button type="button" class="btn btn-default dropdown-toggle btn-sm"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+            ' <i class="fa fa-fw fa-align-justify"></i>' +
+            '</button>' +
+            '<ul class="dropdown-menu dropdown-menu-left" >' +
+            '<li name="edit"><a href="#"> <i class="fa fa-edit"></i> Editar</a></li>' +
+            ' <li name="delete" ><a href="#"> <i class="fa fa-trash"></i> Eliminar</a></li>' +
+            '</ul>' +
+            '</div>';
+}
+
+
+
+function deleteIndividual(tableSelect) {
+    state = $(tableSelect).bootstrapTable("getSelections").map(row => row.state);
+    $(tableSelect).bootstrapTable("remove", {field: 'state', values: state});
 }
 
 
