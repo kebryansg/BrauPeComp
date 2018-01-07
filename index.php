@@ -59,6 +59,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="resource/Moment/moment-with-locales.js"></script>
         <script src="resource/dist/js/style.js"></script>
         <script src="resource/dist/js/loads.js"></script>
+        <script src="resource/dist/js/jquery.inputmask.bundle.min.js"></script>
+        
+        
     </head>
     <!--
     BODY TAG OPTIONS:

@@ -78,7 +78,7 @@
             </div>
             <div class="row">
                 <div toolbar id="toolbarDetalle" class="btn-group">
-                    <button addTable type="button" class="btn btn-success" data-target="#detalleProforma">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-new" data-tab="#detalleProforma">
                         <i class="fa fa-plus"></i> Agregar
                     </button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-find">
@@ -96,10 +96,11 @@
                         <thead>
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
-                                <th data-field="producto">Producto</th>
-                                <th data-field="cantidad" class="col-md-2">Cantidad</th>
-                                <th data-field="precioProveedor" class="col-md-2" >$ Proveedor</th>
-                                <th data-field="precioComision" class="col-md-2">$ Comisión</th>
+                                <th data-field="producto" >Producto</th>
+                                <th data-field="cantidad" class="col-md-2" >Cantidad</th>
+                                <th data-field="precioProveedor" class="col-md-2"  >$ Proveedor</th>
+                                <th data-field="precioComision" class="col-md-2" >$ Comisión</th>
+                                <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultAccion" >Accion</th>
                             </tr>
                         </thead>
                     </table>
@@ -121,18 +122,18 @@
         </form>
     </div>
 
-    <!--<div id="modal-new" class="modal fade"   >
+    <div id="modal-new" class="modal fade"   >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        Nuevo Registro
+                        Nuevo Items
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <form action="action">
+                    <form local data-tb="#detalleProforma" action="action">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -141,17 +142,25 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">Cantidad</label>
-                                    <input name="cantidad" type="number" min="1" class="form-control" required>
+                                    <input name="cantidad" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false,  'placeholder': '0'" style="text-align: right;" >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="" class="control-label">$ Proveedor</label>
-                                    <input name="producto" type="text" class="form-control" required>
+                                    <input name="precioProveedor" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" style="text-align: right;">
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">$ Comisión</label>
-                                    <input name="cantidad" type="number" min="1" class="form-control" required>
+                                    <input name="precioComision" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" style="text-align: right;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="reset" class="btn btn-danger"> <i class="fa fa-reply"></i> Cancelar</button>
+                                    <button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i> Añadir </button>
                                 </div>
                             </div>
                         </div>
@@ -161,7 +170,7 @@
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
 
 </section>
 
