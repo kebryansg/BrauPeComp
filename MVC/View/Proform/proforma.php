@@ -48,20 +48,20 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="" class="control-label">Tipo de Ganancia</label>
+                        <label for="" class="control-label">Tipo de Comisión</label>
                         <select name="estado" class="form-control" required>
-                            <option value="GEN">General</option>
-                            <option value="PROD">Producto</option>
+                            <option value="GEN">Por Total</option>
+                            <option value="PROD">Por Producto</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="" class="control-label">Valor Ganancia</label>
+                        <label for="" class="control-label">Valor Comisión</label>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="pull-right">
                                     <button type="button" class="btn btn-success"><i class="fa fa-refresh"></i></button>
                                 </div>
-                                <input name="fecha" type="text" class="form-control" style="width: 80%;" required>
+                                <input name="comision" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false,  'placeholder': '0'" style="text-align: right;width: 80%;">
                                 
                             </div>
 
@@ -71,9 +71,24 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
+                        <label for="" class="control-label">Cliente</label>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" data-toggle="modal" data-target="#modal-find-cliente" class="btn btn-primary"><i class="fa fa-search"></i> </button>
+                                    <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> </button>
+                                </div>
+                                <input type="text" nombres class="form-control" style="width: 70%;" readonly>
+                                <input type="text" class="hidden" name="cliente">
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!--<div class="form-group">
                         <label for="" class="control-label">Observación</label>
                         <textarea class="form-control" name="observacion" cols="30" rows="4"></textarea>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="row">
@@ -100,7 +115,7 @@
                                 <th data-field="cantidad" class="col-md-2" >Cantidad</th>
                                 <th data-field="precioProveedor" class="col-md-2"  >$ Proveedor</th>
                                 <th data-field="precioComision" class="col-md-2" >$ Comisión</th>
-                                <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultAccion" >Accion</th>
+                                <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultAccion" data-events="editAccion" >Accion</th>
                             </tr>
                         </thead>
                     </table>
@@ -148,11 +163,11 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="" class="control-label">$ Proveedor</label>
-                                    <input name="precioProveedor" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" style="text-align: right;">
+                                    <input name="precioProveedor" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false,  'placeholder': '0'" style="text-align: right;">
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">$ Comisión</label>
-                                    <input name="precioComision" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" style="text-align: right;">
+                                    <input name="precioComision" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" style="text-align: right;">
                                 </div>
                             </div>
                         </div>
@@ -165,6 +180,65 @@
                             </div>
                         </div>
                     </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-find" class="modal fade"   >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        Buscar Items
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table
+                        find
+                        data-ajax="loadProducto"
+                        >
+                        <thead>
+                            <tr>
+                                <th data-field="descripcion">Descripcion</th>
+                                <th data-formatter="AccSeleccion" data-events="event_find" class="col-md-1" data-align="center">Acción</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-find-cliente" class="modal fade"   >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        Buscar Cliente
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table
+                        find
+                        data-ajax="loadCliente"
+                        >
+                        <thead>
+                            <tr>
+                                <th data-field="nombres">Nombre</th>
+                                <th data-field="identificacion">Identificación</th>
+                                <th data-field="telefono">Teléfono</th>
+                                <th data-formatter="AccSeleccion" data-events="event_find_cliente" class="col-md-1" data-align="center">Acción</th>
+                            </tr>
+                        </thead>
+                    </table>
 
 
                 </div>
