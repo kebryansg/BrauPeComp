@@ -1,3 +1,17 @@
+table = $("div[Listado] table");
+function initRegistro() {
+    $("input[fecha]").val(moment().format('MMMM D, YYYY'));
+    
+    $("input[myDecimal]").val("0");
+    
+    $("input[myDecimal]").inputmask("myDecimal");
+    
+
+    $("input[nombres]").val("Consumidor Final");
+    $("input[name='cliente']").val(1);
+
+}
+
 window.event_find = {
     'click button[select]': function (e, value, row, index) {
         datos = [];
@@ -77,34 +91,34 @@ $(function () {
     });
 
 
-    $("#refreshComision").click(function (e) {
-        datos = $("#detalleProforma").bootstrapTable("getData");
-        tipo = $("select[name='tipoComision']").val();
-        valor = "";
-        switch (tipo) {
-            case "GEN":
-                valor = parseFloat("0.00").toFixed(2) ;
-                break;
-            case "PROD":
-                valor = (parseFloat($("input[name='comision']").val()) / datos.length).toFixed(2);
-                break;
-        }
-
-
-        $.each(datos, function (index, rw) {
-            $("#detalleProforma").bootstrapTable("updateCell", {
-                index: index,
-                field: "precioComision",
-                value: valor
-            });
-        });
-        
-        calculoTb();
+    $("input[name='ganancia']").change(function (e) {
+        before_comision = parseFloat($("#txtComision").val());
+        comision = parseFloat($(this).val());
+        total = before_comision + comision;
+        $("#txtComision").val(total.toFixed(2));
     });
 
-
-    $("button[name='btn_add']").click();
+//    $("button[name='btn_add']").click();
 });
+
+
+
+function getDatos(form) {
+    form_datos = JSON.parse($(form).serializeObject());
+    fecha = moment($("input[name='fecha']").val(), 'MMMM D, YYYY');
+    form_datos["fecha"] = fecha.format();
+    datos = {
+        url: $(form).attr("action"),
+        dt: {
+            accion: "save",
+            op: $(form).attr("role"),
+            datos: JSON.stringify(form_datos),
+            detalles: $("#detalleProforma").bootstrapTable("getData")
+        }
+    };
+    console.log(datos);
+    return datos;
+}
 
 function calculoTb() {
     subtotal = 0;
@@ -118,7 +132,7 @@ function calculoTb() {
         comision += parseFloat(row.precioComision);
     });
     $("#txtComision").val(comision.toFixed(2));
-    
+
 }
 
 function edit(datos, index) {
@@ -136,3 +150,4 @@ function defaultAccion() {
 function AccSeleccion() {
     return '<button select type="button" class="btn btn-sm btn-info"> <i class="fa fa-check"></i> Seleccionar </button>';
 }
+

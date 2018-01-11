@@ -1,4 +1,18 @@
 var selections = [];
+moment.locale("es");
+
+Inputmask.extendAliases({
+    'myDecimal': {
+        alias: "numeric",
+        groupSeparator: ',',
+        autoGroup: true,
+        digits: 2,
+        digitsOptional: false,
+        placeholder: '0'
+    }
+});
+
+
 var TablePaginationDefault = {
     height: 400,
     pageSize: 5,
@@ -22,10 +36,14 @@ $(function () {
         }
     });
 
-
     $(document).on("click", "button[name='btn_add']", function (e) {
+
+        if (typeof window.initRegistro === 'function') {
+            initRegistro();
+        }
         showRegistro();
     });
+
     $(document).on("click", "form[save] button[type='reset']", function (e) {
         if ($(this).closest(".modal-body").length > 0) {
             $(this).closest(".modal").modal("hide");
@@ -38,7 +56,7 @@ $(function () {
         e.preventDefault();
         datos = {};
         if (typeof window.getDatos === 'function') {
-            datos = getDatos();
+            datos = getDatos(this);
         } else {
             datos = {
                 url: $(this).attr("action"),
@@ -54,7 +72,7 @@ $(function () {
         $(this).trigger("reset");
         hideRegistro();
     });
-    
+
     $(document).on("click", "button[name='btn_del_individual']", function (e) {
         div_id = $(this).closest("div[toolbar]").attr("id");
 
@@ -62,8 +80,7 @@ $(function () {
         tableSelect = $("table[data-toolbar='#" + div_id + "']");
         deleteIndividual(tableSelect);
     });
-    
-    
+
     var dropdownMenu;
     $(window).on('show.bs.dropdown', function (e) {
         if (!$.isEmptyObject($(e.target).attr("name"))) {
@@ -77,6 +94,7 @@ $(function () {
             });
         }
     });
+
     $(window).on('hide.bs.dropdown', function (e) {
         if (!$.isEmptyObject(dropdownMenu)) {
             $(e.target).append(dropdownMenu.detach());
@@ -84,7 +102,7 @@ $(function () {
             dropdownMenu = null;
         }
     });
-    
+
 });
 
 
@@ -173,8 +191,6 @@ function defaultBtnAccion(value, rowData, index) {
             '</ul>' +
             '</div>';
 }
-
-
 
 function deleteIndividual(tableSelect) {
     state = $(tableSelect).bootstrapTable("getSelections").map(row => row.state);

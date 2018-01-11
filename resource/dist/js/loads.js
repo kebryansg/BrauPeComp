@@ -19,3 +19,14 @@ function loadProducto(params){
     };
     params.success(getJson(json_data));
 }
+
+function loadProforma(params){
+    json_data = {
+        data: $.extend({}, {
+            op: "proforma",
+            accion: "list"
+        }, params.data),
+        url: "servidor/sProforma.php"
+    };
+    params.success(getJson(json_data));
+}

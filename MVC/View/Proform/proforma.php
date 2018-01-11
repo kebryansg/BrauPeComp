@@ -18,7 +18,7 @@
         <table
             init
             data-toolbar="#toolbar"
-            data-ajax="loadProducto"
+            data-ajax="loadProforma"
             data-response-handler="responseHandler"
             >
             <thead>
@@ -26,7 +26,7 @@
                     <th data-field="state" data-checkbox="true"></th>
                     <th data-field="id" class="col-md-1">N° Proforma</th>
                     <th data-field="fecha" class="col-md-3">Fecha</th>
-                    <th data-field="tipoGanancia" class="col-md-2">Tipo Ganancia</th>
+                    <th data-field="ganancia" class="col-md-2">Tipo Ganancia</th>
                     <th data-field="observacion">Observacion</th>
                     <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultBtnAccion" >Acción</th>
                 </tr>
@@ -41,12 +41,14 @@
                         <label for="" class="control-label">N° Proforma</label>
                         <input name="id" type="text" class="form-control" readonly value="0">
                     </div>
-                    <div class="form-group">
-                        <label for="" class="control-label">Fecha</label>
-                        <input name="fecha" type="text" class="form-control" readonly>
-                    </div>
                 </div>
                 <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="" class="control-label">Fecha</label>
+                        <input fecha name="fecha" type="text" class="form-control" readonly required>
+                    </div>
+                </div>
+<!--                <div class="col-md-3">
                     <div class="form-group">
                         <label for="" class="control-label">Tipo de Comisión</label>
                         <select name="tipoComision" class="form-control" required>
@@ -68,7 +70,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div>-->
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="" class="control-label">Cliente</label>
@@ -79,8 +81,7 @@
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-new-cliente"><i class="fa fa-plus"></i> </button>
                                 </div>
                                 <input type="text" nombres class="form-control" style="width: 70%;" readonly>
-                                <input type="text" class="hidden" name="cliente">
-
+                                <input type="text" class="hidden" name="cliente" required>
                             </div>
                         </div>
 
@@ -128,15 +129,19 @@
                         <div class="form-inline">
                             <div class="form-group">
                                 <label class="control-label">Subtotal</label>
-                                <input id="txtSubtotal" readonly type="text" class="form-control input-sm">
+                                <input id="txtSubtotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Valor Comisión</label>
+                                <input myDecimal type="text" name='ganancia' class="form-control input-sm" style="text-align: right;">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Total Comisión</label>
-                                <input id="txtComision" readonly type="text" class="form-control input-sm">
+                                <input id="txtComision" readonly type="text" class="form-control input-sm" style="text-align: right;">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Total</label>
-                                <input id="txtTotal" readonly type="text" class="form-control input-sm">
+                                <input id="txtTotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
                             </div>
                         </div>
                     </div>
@@ -178,17 +183,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">Cantidad</label>
-                                    <input name="cantidad" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false,  'placeholder': '0'" style="text-align: right;" >
+                                    <input name="cantidad" type="text" class="form-control" required myDecimal style="text-align: right;" >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="" class="control-label">$ Proveedor</label>
-                                    <input name="precioProveedor" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false,  'placeholder': '0'" style="text-align: right;">
+                                    <input name="precioProveedor" type="text" class="form-control" required myDecimal style="text-align: right;">
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="control-label">$ Comisión</label>
-                                    <input name="precioComision" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" style="text-align: right;">
+                                    <input name="precioComision" type="text" class="form-control" required myDecimal style="text-align: right;">
                                 </div>
                             </div>
                         </div>
