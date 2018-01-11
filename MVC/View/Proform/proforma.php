@@ -49,7 +49,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="" class="control-label">Tipo de Comisión</label>
-                        <select name="estado" class="form-control" required>
+                        <select name="tipoComision" class="form-control" required>
                             <option value="GEN">Por Total</option>
                             <option value="PROD">Por Producto</option>
                         </select>
@@ -59,10 +59,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="pull-right">
-                                    <button type="button" class="btn btn-success"><i class="fa fa-refresh"></i></button>
+                                    <button id="refreshComision" type="button" class="btn btn-success"><i class="fa fa-refresh"></i></button>
                                 </div>
                                 <input name="comision" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false,  'placeholder': '0'" style="text-align: right;width: 80%;">
-                                
+
                             </div>
 
                         </div>
@@ -76,14 +76,14 @@
                             <div class="col-md-12">
                                 <div class="pull-right">
                                     <button type="button" data-toggle="modal" data-target="#modal-find-cliente" class="btn btn-primary"><i class="fa fa-search"></i> </button>
-                                    <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> </button>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-new-cliente"><i class="fa fa-plus"></i> </button>
                                 </div>
                                 <input type="text" nombres class="form-control" style="width: 70%;" readonly>
                                 <input type="text" class="hidden" name="cliente">
-                                
+
                             </div>
                         </div>
-                        
+
                     </div>
                     <!--<div class="form-group">
                         <label for="" class="control-label">Observación</label>
@@ -119,6 +119,27 @@
                             </tr>
                         </thead>
                     </table>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label class="control-label">Subtotal</label>
+                                <input id="txtSubtotal" readonly type="text" class="form-control input-sm">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Total Comisión</label>
+                                <input id="txtComision" readonly type="text" class="form-control input-sm">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Total</label>
+                                <input id="txtTotal" readonly type="text" class="form-control input-sm">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <br>
@@ -186,7 +207,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="modal-find" class="modal fade"   >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -214,7 +235,10 @@
                 </div>
             </div>
         </div>
+
     </div>
+
+
     <div id="modal-find-cliente" class="modal fade"   >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -241,6 +265,21 @@
                     </table>
 
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-new-cliente" class="modal fade"   >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Nuevo Cliente
+                    </h4>
+                </div>
+                <div class="modal-body">
                 </div>
             </div>
         </div>

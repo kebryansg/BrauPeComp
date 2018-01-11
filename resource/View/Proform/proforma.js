@@ -12,6 +12,7 @@ window.event_find = {
                 precioProveedor: 0,
                 precioComision: 0
             });
+            calculoTb();
         }
         $("#modal-find").modal("hide");
     }
@@ -29,6 +30,7 @@ window.editAccion = {
         edit(row, index);
     }
 };
+
 $(function () {
     $("table[init]").bootstrapTable(TablePaginationDefault);
     $("table[find]").bootstrapTable($.extend({}, TablePaginationDefault, {
@@ -37,8 +39,6 @@ $(function () {
 
 
     $("input[data-inputmask]").inputmask();
-
-
 
 
     $("table[detalle]").bootstrapTable({
@@ -63,9 +63,6 @@ $(function () {
         tb = $(this).attr("data-tb");
         datos = JSON.parse($(this).serializeObject());
 
-        /*console.log($(this).data("index"));
-         console.log($.isNumeric($(this).data("index")));*/
-
         if ($.isNumeric($(this).data("index"))) {
             $(tb).bootstrapTable("updateRow", {
                 index: $(this).data("index"),
@@ -75,12 +72,54 @@ $(function () {
             $(tb).bootstrapTable("append", datos);
 
         }
+        calculoTb();
         $(this).trigger("reset");
+    });
+
+
+    $("#refreshComision").click(function (e) {
+        datos = $("#detalleProforma").bootstrapTable("getData");
+        tipo = $("select[name='tipoComision']").val();
+        valor = "";
+        switch (tipo) {
+            case "GEN":
+                valor = parseFloat("0.00").toFixed(2) ;
+                break;
+            case "PROD":
+                valor = (parseFloat($("input[name='comision']").val()) / datos.length).toFixed(2);
+                break;
+        }
+
+
+        $.each(datos, function (index, rw) {
+            $("#detalleProforma").bootstrapTable("updateCell", {
+                index: index,
+                field: "precioComision",
+                value: valor
+            });
+        });
+        
+        calculoTb();
     });
 
 
     $("button[name='btn_add']").click();
 });
+
+function calculoTb() {
+    subtotal = 0;
+    $.each($("#detalleProforma").bootstrapTable("getData"), function (i, row) {
+        subtotal += row.cantidad * row.precioProveedor;
+    });
+    $("#txtSubtotal").val(subtotal.toFixed(2));
+    /* Comision */
+    comision = 0;
+    $.each($("#detalleProforma").bootstrapTable("getData"), function (i, row) {
+        comision += parseFloat(row.precioComision);
+    });
+    $("#txtComision").val(comision.toFixed(2));
+    
+}
 
 function edit(datos, index) {
     $("form[local]").data("index", index);
@@ -88,11 +127,6 @@ function edit(datos, index) {
     for (var clave in datos) {
         $("form[local] [name='" + clave + "']").val(datos[clave]);
     }
-
-    /*$("form[local] input[name]").each(function(i, input){
-     name = $(input).attr("name");
-     
-     });*/
 }
 
 function defaultAccion() {

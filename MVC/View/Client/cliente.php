@@ -72,6 +72,10 @@
                         <label for="" class="control-label">Email</label>
                         <input name="email" type="email" class="form-control" required>
                     </div>
+                    <div class="form-group">
+                        <label for="" class="control-label">Dirección</label>
+                        <textarea name="direccion" cols="30" class="form-control" rows="2"></textarea>
+                    </div>
                 </div>
             </div>
             <div class="row">
