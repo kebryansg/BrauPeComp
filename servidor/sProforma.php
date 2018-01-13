@@ -3,6 +3,7 @@ require_once __DIR__."/../init.php";
 
 include_once SITE_ROOT . '/MVC/Model/ProformaDaoImp.php';
 include_once SITE_ROOT . '/MVC/Model/ProductoDaoImp.php';
+include_once SITE_ROOT . '/MVC/Model/DetalleProformaDaoImp.php';
 include_once SITE_ROOT . '/MVC/Controller/JsonMapper.php';
 
 $accion = $_POST["accion"];
@@ -40,17 +41,26 @@ switch ($accion) {
                     "Mensaje" => "Registrado Correctamente"
                 ));
                 
-                $detalles = json_decode($_POST["detalles"], TRUE);
+                $detalles = $_POST["detalles"];
                 foreach ($detalles as $detalle) {
-                    if($detalle["id"] === 0){
+                    $detalleProforma = new DetalleProforma();
+                    if($detalle["id"] === "0"){
                         $Producto = new Producto();
                         $Producto->Descripcion = $detalle["producto"];
                         ProductoDaoImp::save($Producto);
-                        $detalle["id"] = $Producto->Id;
+                        //$detalle["producto"] = $Producto->Id;
+                        $detalleProforma->Producto = $Producto->Id;
+                    }else{
+                        $detalleProforma->Producto = $detalle["id"];
                     }
-                    $detalle["producto"] = $detalle["id"];
-                    $detalle["proforma"] = $Profoma->Id;
-                    ProformaDaoImp::saveDetalle($detalle);
+                    //$detalle["proforma"] = $Profoma->Id;
+                    
+                    $detalleProforma->Proforma = $Profoma->Id;
+                    $detalleProforma->Cantidad = $detalle["cantidad"];
+                    $detalleProforma->precioComision= $detalle["precioComision"];
+                    $detalleProforma->precioProveedor= $detalle["precioProveedor"];
+                    DetalleProformaDaoImp::save($detalleProforma);
+                    //ProformaDaoImp::saveDetalle($detalle);
                 }
                 
                 

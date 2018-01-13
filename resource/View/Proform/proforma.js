@@ -47,8 +47,10 @@ window.editAccion = {
 
 $(function () {
     $("table[init]").bootstrapTable(TablePaginationDefault);
+
     $("table[find]").bootstrapTable($.extend({}, TablePaginationDefault, {
-        height: 300
+        height: 400,
+        showRefresh: true
     }));
 
 
@@ -64,6 +66,12 @@ $(function () {
         $(this).removeData("index");
         $(this).removeData("id");
         $("#modal-new").modal("hide");
+    });
+    
+    $("#modal-find").on({
+        'shown.bs.modal':function(e){
+                $("table[find]").bootstrapTable("refresh");
+        }
     });
 
     $("#modal-new").on({
@@ -106,7 +114,7 @@ $(function () {
 function getDatos(form) {
     form_datos = JSON.parse($(form).serializeObject());
     fecha = moment($("input[name='fecha']").val(), 'MMMM D, YYYY');
-    form_datos["fecha"] = fecha.format();
+    form_datos["fecha"] = fecha.format("YYYY-MM-DD HH:mm:ss");
     datos = {
         url: $(form).attr("action"),
         dt: {

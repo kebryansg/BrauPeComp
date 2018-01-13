@@ -55,7 +55,7 @@ $(function () {
     $(document).on("submit", "form[save]", function (e) {
         e.preventDefault();
         datos = {};
-        if (typeof window.getDatos === 'function') {
+        if (typeof getDatos === 'function') {
             datos = getDatos(this);
         } else {
             datos = {
@@ -191,6 +191,15 @@ function defaultBtnAccion(value, rowData, index) {
             '</ul>' +
             '</div>';
 }
+window.defaultEvent = {
+    'click li[name="edit"]': function(e, value, row, index){
+        edit(row);
+        showRegistro();
+    },
+    'click li[name="delete"]': function(e, value, row, index){
+        alert("delete");
+    }
+};
 
 function deleteIndividual(tableSelect) {
     state = $(tableSelect).bootstrapTable("getSelections").map(row => row.state);

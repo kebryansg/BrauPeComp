@@ -27,7 +27,7 @@
                     <th data-field="descripcion">Descripción</th>
                     <th data-field="observacion">Observación</th>
                     <th data-field="estado">Estado</th>
-                    <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultBtnAccion" >Acción</th>
+                    <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultBtnAccion" data-events="defaultEvent" >Acción</th>
                 </tr>
             </thead>
         </table>
