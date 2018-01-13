@@ -44,30 +44,20 @@ switch ($accion) {
                     "Mensaje" => "Registrado Correctamente"
                 ));
                 
-                $detalles = $_POST["detalles"];
+                $detalles = json_decode($_POST["detalles"]);
+                
                 foreach ($detalles as $detalle) {
-                    $detalleProforma = new DetalleProforma();
-                    if($detalle["idProducto"] === "0"){
-                        $Producto = new Producto();
-                        $Producto->Descripcion = $detalle["producto"];
-                        ProductoDaoImp::save($Producto);
-                        //$detalle["producto"] = $Producto->Id;
-                        $detalleProforma->IdProducto = $Producto->Id;
-                    }else{
-                        $detalleProforma->IdProducto = $detalle["idProducto"];
-                    }
-                    //$detalle["proforma"] = $Profoma->Id;
+                    $detalleProforma = $mapper->map($detalle, new DetalleProforma());
                     
+                    if($detalleProforma->IdProducto === "0"){
+                        $Producto = new Producto();
+                        $Producto->Descripcion = $detalle->producto;
+                        ProductoDaoImp::save($Producto);
+                        $detalleProforma->IdProducto = $Producto->Id;
+                    }
                     $detalleProforma->IdProforma = $Profoma->Id;
-                    $detalleProforma->Cantidad = $detalle["cantidad"];
-                    $detalleProforma->precioComision= $detalle["precioComision"];
-                    $detalleProforma->precioProveedor= $detalle["precioProveedor"];
                     DetalleProformaDaoImp::save($detalleProforma);
-                    //ProformaDaoImp::saveDetalle($detalle);
                 }
-                
-                
-                
                 break;
         }
         break;

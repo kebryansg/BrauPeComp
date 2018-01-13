@@ -41,7 +41,7 @@ window.event_find_cliente = {
 };
 window.editAccion = {
     'click button[edit]': function (e, value, row, index) {
-        edit(row, index);
+        editDetalle(row, index);
     }
 };
 
@@ -122,7 +122,7 @@ function getDatos(form) {
             accion: "save",
             op: $(form).attr("role"),
             datos: JSON.stringify(form_datos),
-            detalles: $("#detalleProforma").bootstrapTable("getData")
+            detalles: JSON.stringify($("#detalleProforma").bootstrapTable("getData"))
         }
     };
     console.log(datos);
@@ -146,7 +146,7 @@ function calculoTb() {
 
 }
 
-function edit(datos, index) {
+function editDetalle(datos, index) {
     $("form[local]").data("index", index);
     $("form[local]").data("id", datos.id);
     for (var clave in datos) {
@@ -177,11 +177,20 @@ function edit(datos) {
                 idProforma: datos.id
             },
             function (response) {
+                //$("#detalleProforma").bootstrapTable("load", JSON.parse(response));
+                $("#detalleProforma").bootstrapTable("load", response);
+            }, "json");
 
-                $("#detalleProforma").bootstrapTable("load", JSON.parse(response));
-                console.log(response);
-
-            });
-
+    $.post("servidor/sCliente.php", {
+        accion: "get",
+        op: "",
+        idCliente: datos.cliente
+    }, function (response) {
+        response = JSON.parse(response);
+        $(form + " [name='cliente']").val(response.id);
+        $(form + " input[nombres]").val(response.nombres);
+        //console.log(response);
+    });
+    calculoTb();
 
 }

@@ -20,6 +20,15 @@ class ClienteDaoImp {
         }
         $conn->close();
     }
+    public static function get($idCliente) {
+        $conn = (new C_MySQL())->open();
+        $sql = "select SQL_CALC_FOUND_ROWS * from cliente where id = $idCliente ;";
+
+        $cliente = C_MySQL::returnListAsoc($conn, $sql)[0];
+        $conn->close();
+        return $cliente;
+    }
+    
 
     public static function _list($params, &$count) {
         $conn = (new C_MySQL())->open();
