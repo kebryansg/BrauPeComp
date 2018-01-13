@@ -20,6 +20,7 @@ var TablePaginationDefault = {
     pageList: [5, 10, 15, 20],
     cache: false,
     pagination: true,
+    searchTimeOut: 250,
     sidePagination: "server"
 };
 $(function () {

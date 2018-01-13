@@ -28,7 +28,7 @@
                     <th data-field="fecha" class="col-md-3">Fecha</th>
                     <th data-field="ganancia" class="col-md-2">Tipo Ganancia</th>
                     <th data-field="observacion">Observacion</th>
-                    <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultBtnAccion" >Acción</th>
+                    <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultBtnAccion" data-events="defaultEvent" >Acción</th>
                 </tr>
             </thead>
         </table>
@@ -48,29 +48,6 @@
                         <input fecha name="fecha" type="text" class="form-control" readonly required>
                     </div>
                 </div>
-<!--                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="" class="control-label">Tipo de Comisión</label>
-                        <select name="tipoComision" class="form-control" required>
-                            <option value="GEN">Por Total</option>
-                            <option value="PROD">Por Producto</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="control-label">Valor Comisión</label>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pull-right">
-                                    <button id="refreshComision" type="button" class="btn btn-success"><i class="fa fa-refresh"></i></button>
-                                </div>
-                                <input name="comision" type="text" class="form-control" required data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false,  'placeholder': '0'" style="text-align: right;width: 80%;">
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>-->
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="" class="control-label">Cliente</label>
@@ -86,10 +63,6 @@
                         </div>
 
                     </div>
-                    <!--<div class="form-group">
-                        <label for="" class="control-label">Observación</label>
-                        <textarea class="form-control" name="observacion" cols="30" rows="4"></textarea>
-                    </div>-->
                 </div>
             </div>
             <div class="row">

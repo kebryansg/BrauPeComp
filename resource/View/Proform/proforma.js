@@ -1,11 +1,11 @@
 table = $("div[Listado] table");
 function initRegistro() {
     $("input[fecha]").val(moment().format('MMMM D, YYYY'));
-    
+
     $("input[myDecimal]").val("0");
-    
+
     $("input[myDecimal]").inputmask("myDecimal");
-    
+
 
     $("input[nombres]").val("Consumidor Final");
     $("input[name='cliente']").val(1);
@@ -15,12 +15,12 @@ function initRegistro() {
 window.event_find = {
     'click button[select]': function (e, value, row, index) {
         datos = [];
-        ids = $("#detalleProforma").bootstrapTable("getData").map(function (rw) {
-            return rw.id;
+        idProductos = $("#detalleProforma").bootstrapTable("getData").map(function (rw) {
+            return rw.idProducto;
         });
-        if ($.inArray(row.id, ids) < 0) {
+        if ($.inArray(row.id, idProductos) < 0) {
             $("#detalleProforma").bootstrapTable("append", {
-                id: row.id,
+                idProducto: row.id,
                 producto: row.descripcion,
                 cantidad: 1,
                 precioProveedor: 0,
@@ -50,7 +50,8 @@ $(function () {
 
     $("table[find]").bootstrapTable($.extend({}, TablePaginationDefault, {
         height: 400,
-        showRefresh: true
+        showRefresh: true,
+        searchTimeOut: 250
     }));
 
 
@@ -67,10 +68,10 @@ $(function () {
         $(this).removeData("id");
         $("#modal-new").modal("hide");
     });
-    
-    $("#modal-find").on({
-        'shown.bs.modal':function(e){
-                $("table[find]").bootstrapTable("refresh");
+
+    $("#modal-find,#modal-find-cliente").on({
+        'shown.bs.modal': function (e) {
+            $(this).find("table[find]").bootstrapTable("resetSearch", "");
         }
     });
 
@@ -91,8 +92,8 @@ $(function () {
                 row: datos
             });
         } else {
+            datos["idProducto"] = "0";
             $(tb).bootstrapTable("append", datos);
-
         }
         calculoTb();
         $(this).trigger("reset");
@@ -130,6 +131,8 @@ function getDatos(form) {
 
 function calculoTb() {
     subtotal = 0;
+
+    console.log($("#detalleProforma").bootstrapTable("getData"));
     $.each($("#detalleProforma").bootstrapTable("getData"), function (i, row) {
         subtotal += row.cantidad * row.precioProveedor;
     });
@@ -159,3 +162,26 @@ function AccSeleccion() {
     return '<button select type="button" class="btn btn-sm btn-info"> <i class="fa fa-check"></i> Seleccionar </button>';
 }
 
+function edit(datos) {
+    form = "div[Registro] form";
+    console.log(datos);
+    $(form).data("id", datos.id);
+    for (var clave in datos) {
+        $(form + " [name='" + clave + "']").val(datos[clave]);
+    }
+
+    $.post("servidor/sProforma.php",
+            {
+                accion: "list",
+                op: "DetallePorforma",
+                idProforma: datos.id
+            },
+            function (response) {
+
+                $("#detalleProforma").bootstrapTable("load", JSON.parse(response));
+                console.log(response);
+
+            });
+
+
+}

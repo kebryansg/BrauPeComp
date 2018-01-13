@@ -25,6 +25,9 @@ switch ($accion) {
                     "total" => $count
                 ));
                 break;
+            case "DetallePorforma": 
+                $resultado = json_encode(DetalleProformaDaoImp::_list($_POST["idProforma"]));
+                break;
         }
         break;
     case "save":
@@ -44,18 +47,18 @@ switch ($accion) {
                 $detalles = $_POST["detalles"];
                 foreach ($detalles as $detalle) {
                     $detalleProforma = new DetalleProforma();
-                    if($detalle["id"] === "0"){
+                    if($detalle["idProducto"] === "0"){
                         $Producto = new Producto();
                         $Producto->Descripcion = $detalle["producto"];
                         ProductoDaoImp::save($Producto);
                         //$detalle["producto"] = $Producto->Id;
-                        $detalleProforma->Producto = $Producto->Id;
+                        $detalleProforma->IdProducto = $Producto->Id;
                     }else{
-                        $detalleProforma->Producto = $detalle["id"];
+                        $detalleProforma->IdProducto = $detalle["idProducto"];
                     }
                     //$detalle["proforma"] = $Profoma->Id;
                     
-                    $detalleProforma->Proforma = $Profoma->Id;
+                    $detalleProforma->IdProforma = $Profoma->Id;
                     $detalleProforma->Cantidad = $detalle["cantidad"];
                     $detalleProforma->precioComision= $detalle["precioComision"];
                     $detalleProforma->precioProveedor= $detalle["precioProveedor"];

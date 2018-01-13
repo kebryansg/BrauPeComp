@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__."/../init.php";
+
+require_once __DIR__ . "/../init.php";
 
 include_once SITE_ROOT . '/MVC/Model/ProductoDaoImp.php';
 include_once SITE_ROOT . '/MVC/Controller/JsonMapper.php';
@@ -13,7 +14,8 @@ switch ($accion) {
     case "list":
         $params = array(
             "top" => (isset($_POST["limit"])) ? $_POST["limit"] : 0,
-            "pag" => (isset($_POST["offset"])) ? $_POST["offset"] : 0
+            "pag" => (isset($_POST["offset"])) ? $_POST["offset"] : 0,
+            "buscar" => (isset($_POST["search"])) ? $_POST["search"] : NULL
         );
         $count = 0;
         switch ($op) {

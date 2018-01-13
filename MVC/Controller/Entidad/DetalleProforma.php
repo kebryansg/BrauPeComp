@@ -4,8 +4,8 @@ include_once 'ModelSQL.php';
 class DetalleProforma extends ModelSQL {
     public $tabla;
     public $Id;
-    public $Proforma;
-    public $Producto;
+    public $IdProforma;
+    public $IdProducto;
     public $Cantidad;
     public $precioProveedor;
     public $precioComision;
