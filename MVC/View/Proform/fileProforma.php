@@ -13,11 +13,8 @@
 <script src="../../../resource/Moment/moment-with-locales.js"></script>
 <script src="../../../resource/dist/js/style.js"></script>
 <script type="text/javascript">
-    datos = (<?php echo $_POST["datos"]; ?>)
+    datos = (<?php echo $_POST["datos"]; ?>);
 </script>
-<?php
-//$datos = json_decode($_POST["datos"], TRUE);
-?>
 
 
 <section class="content-header">
@@ -104,40 +101,51 @@
                     </thead>
                 </table>
                 <br>
-                <div class="pull-left">
-                    <div class="form-inline" style="margin-bottom: 2px;" >
-                        <label for="" class="control-label">IVA 12%:</label>
-                        <input name='iva' type="text" class="form-control text-right" readonly>
+                <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
+                    <div id="notas" class="col-md-7">
+<!--                        <p class="text-justify">
+                            <strong>Garantia</strong> 
+                        </p>-->
+                        <dl >
+                            <dt>Garantia:</dt>
+                            <dd class="text-justify">
+                                ANTE DEFECTOS DE FABRICACIÓN: 3 Años en Monitor, mainboard y procesador.
+                                1 año en resto de componentes y partes.</dd>
+                            <br>
+                            <dt>Nota:</dt>
+                            <dd class="text-justify">
+                                El precio puede varias dependiendo las partes que el cliente quiera cambiar.
+                                Confirmar la compra a mi telefono 099, para el pago, puede depositar a mi cuenta de ahorros Banco Pichincha a nombre de Braulio Pérez Saldaña #2201316607
+                            </dd>
+                            <br>
+                            <dt>Depositar $<strong name="envio">0.00</strong> adicional del envío por servientrega.</dt>
+                            <!--<dd class="text-justify">
+                                El precio puede varias dependiendo las partes que el cliente quiera cambiar.
+                                Confirmar la compra a mi telefono 099, para el pago, puede depositar a mi cuenta de ahorros Banco Pichincha a nombre de Braulio Pérez Saldaña #2201316607
+                            </dd>-->
+                        </dl>
+                    </div>
+                    <div style="display:flex; flex-direction: column; align-items: flex-end;" >
+                        <div class="form-inline" style="margin-bottom: 2px;" >
+                            <label for="" class="control-label">Sub-Total:</label>
+                            <input name='subtotal' type="text" class="form-control text-right" readonly>
+                        </div>
+                        <div class="form-inline" style="margin-bottom: 2px;" >
+                            <label for="" class="control-label">IVA 12%:</label>
+                            <input name='iva' type="text" class="form-control text-right" readonly>
+                        </div>
+                        <div class="form-inline" >
+                            <label for="" class="control-label">Total:</label>
+                            <input name='total' type="text" class="form-control text-right" readonly>
+                        </div>
                     </div>
                 </div>
-                <div class="form-inline" style="margin-bottom: 2px;" >
-                    <label for="" class="control-label">Sub-Total:</label>
-                    <input name='subtotal' type="text" class="form-control text-right" readonly>
-                </div>
-                <div class="form-inline" style="margin-bottom: 2px;" >
-                    <label for="" class="control-label">IVA 12%:</label>
-                    <input name='iva' type="text" class="form-control text-right" readonly>
-                </div>
-                <div class="form-inline" >
-                    <label for="" class="control-label">Total:</label>
-                    <input name='total' type="text" class="form-control text-right" readonly>
-                </div>
-                <!--                <div class="pull-right" style="display:flex; flex-direction: column; align-items: flex-end;">
-                                    <div class="form-inline" style="margin-bottom: 2px;" >
-                                        <label for="" class="control-label">Sub-Total:</label>
-                                        <input name='subtotal' type="text" class="form-control text-right" readonly>
-                                    </div>
-                                    <div class="form-inline" style="margin-bottom: 2px;" >
-                                        <label for="" class="control-label">IVA 12%:</label>
-                                        <input name='iva' type="text" class="form-control text-right" readonly>
-                                    </div>
-                                    <div class="form-inline" >
-                                        <label for="" class="control-label">Total:</label>
-                                        <input name='total' type="text" class="form-control text-right" readonly>
-                                    </div>
-                                </div>-->
             </div>
-            <div name="footer"></div>
+            <div name="footer" style="text-align: center;">
+                <h5 class="text-center bold">Atentamente</h5>
+                <h5 class="text-center">Ing. Braulio Pérez Saldaña</h5>
+                <h5 class="text-center">Reparación, ventas y soluciones técnicas.</h5>
+            </div>
         </div>
     </div>
 </section>
