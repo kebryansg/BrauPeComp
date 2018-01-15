@@ -193,13 +193,21 @@ function defaultBtnAccion(value, rowData, index) {
             '</div>';
 }
 window.defaultEvent = {
-    'click li[name="edit"]': function(e, value, row, index){
+    'click li[name="edit"]': function (e, value, row, index) {
         edit(row);
         showRegistro();
     },
-    'click li[name="delete"]': function(e, value, row, index){
+    'click li[name="delete"]': function (e, value, row, index) {
         alert("delete");
+    },
+    'click li[name="view"]': function (e, value, row, index) {
+        viewDetalle(row);
+    },
+    'click li[name="download"]': function (e, value, row, index) {
+        openWindowWithPost("MVC/View/Proform/fileProforma.php", row);
     }
+
+
 };
 
 function deleteIndividual(tableSelect) {
@@ -207,4 +215,36 @@ function deleteIndividual(tableSelect) {
     $(tableSelect).bootstrapTable("remove", {field: 'state', values: state});
 }
 
+function defaultFecha(value, rowData, index) {
+    return formatView(value);
+}
 
+
+function formatView(data) {
+    fecha = moment(data, "YYYY-MM-DD HH:mm:ss");
+    return fecha.format('MMMM D, YYYY');
+}
+function formatSave(data) {
+    fecha = moment(data, 'MMMM D, YYYY');
+    return fecha.format("YYYY-MM-DD HH:mm:ss");
+}
+
+
+function openWindowWithPost(url, data) {
+    var form = document.createElement("form");
+    form.target = "_blank";
+    form.method = "POST";
+    form.action = url;
+    form.style.display = "none";
+
+
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "datos";
+    input.value = JSON.stringify(data);
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}

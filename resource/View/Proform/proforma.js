@@ -8,7 +8,7 @@ function initRegistro() {
 
 
     $("input[nombres]").val("Consumidor Final");
-    $("input[name='cliente']").val(1);
+    $("input[name='IdCliente']").val(1);
 
 }
 
@@ -34,7 +34,7 @@ window.event_find = {
 window.event_find_cliente = {
     'click button[select]': function (e, value, row, index) {
         $("input[nombres]").val(row.nombres);
-        $("input[name='cliente']").val(row.id);
+        $("input[name='IdCliente']").val(row.id);
         $("#modal-find-cliente").modal("hide");
 
     }
@@ -46,6 +46,8 @@ window.editAccion = {
 };
 
 $(function () {
+    
+    $("button[name='btn_add']").click();
     $("table[init]").bootstrapTable(TablePaginationDefault);
 
     $("table[find]").bootstrapTable($.extend({}, TablePaginationDefault, {
@@ -107,15 +109,17 @@ $(function () {
         $("#txtComision").val(total.toFixed(2));
     });
 
-//    $("button[name='btn_add']").click();
+
 });
 
 
 
 function getDatos(form) {
     form_datos = JSON.parse($(form).serializeObject());
-    fecha = moment($("input[name='fecha']").val(), 'MMMM D, YYYY');
-    form_datos["fecha"] = fecha.format("YYYY-MM-DD HH:mm:ss");
+    //fecha = moment($("input[name='fecha']").val(), 'MMMM D, YYYY');
+    //form_datos["fecha"] = fecha.format("YYYY-MM-DD HH:mm:ss");
+    fecha = $("input[name='fecha']").val();
+    form_datos["fecha"] = formatSave(fecha);
     datos = {
         url: $(form).attr("action"),
         dt: {
@@ -125,14 +129,14 @@ function getDatos(form) {
             detalles: JSON.stringify($("#detalleProforma").bootstrapTable("getData"))
         }
     };
-    console.log(datos);
+    //console.log(datos);
     return datos;
 }
 
 function calculoTb() {
     subtotal = 0;
 
-    console.log($("#detalleProforma").bootstrapTable("getData"));
+    //console.log($("#detalleProforma").bootstrapTable("getData"));
     $.each($("#detalleProforma").bootstrapTable("getData"), function (i, row) {
         subtotal += row.cantidad * row.precioProveedor;
     });
@@ -165,32 +169,69 @@ function AccSeleccion() {
 function edit(datos) {
     form = "div[Registro] form";
     console.log(datos);
+
+    //datos["fecha"] = formatView(datos["fecha"]);
+
     $(form).data("id", datos.id);
     for (var clave in datos) {
         $(form + " [name='" + clave + "']").val(datos[clave]);
     }
+    $(form + " [name='fecha']").val(formatView(datos["fecha"]));
 
-    $.post("servidor/sProforma.php",
-            {
-                accion: "list",
-                op: "DetallePorforma",
-                idProforma: datos.id
-            },
-            function (response) {
-                //$("#detalleProforma").bootstrapTable("load", JSON.parse(response));
-                $("#detalleProforma").bootstrapTable("load", response);
-            }, "json");
 
-    $.post("servidor/sCliente.php", {
-        accion: "get",
-        op: "",
-        idCliente: datos.cliente
-    }, function (response) {
-        response = JSON.parse(response);
-        $(form + " [name='cliente']").val(response.id);
-        $(form + " input[nombres]").val(response.nombres);
-        //console.log(response);
+
+    response = getJson({
+        url: "servidor/sProforma.php",
+        data: {
+            accion: "list",
+            op: "DetallePorforma",
+            idProforma: datos.id
+        }
     });
+    $("#detalleProforma").bootstrapTable("load", response);
+
+    response = getJson({
+        url: "servidor/sCliente.php",
+        data: {
+            accion: "get",
+            op: "",
+            idCliente: datos.idcliente
+        }
+    });
+    $(form + " [name='IdCliente']").val(response.id);
+    $(form + " input[nombres]").val(response.nombres);
+
+    $("input[myDecimal]").inputmask("myDecimal");
+
+
+
+
     calculoTb();
 
+}
+
+function BtnAccion(value, rowData, index) {
+    return '<div class="btn-group" name="shows">' +
+            '<button type="button" class="btn btn-default dropdown-toggle btn-sm"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+            ' <i class="fa fa-fw fa-align-justify"></i>' +
+            '</button>' +
+            '<ul class="dropdown-menu dropdown-menu-left" >' +
+            '<li name="edit"><a href="#"> <i class="fa fa-edit"></i> Editar</a></li>' +
+            ' <li name="view" ><a href="#"> <i class="fa fa-tasks"></i> Vista Previa</a></li>' +
+            ' <li name="download" ><a href="#"> <i class="fa fa-download"></i> Export</a></li>' +
+            '</ul>' +
+            '</div>';
+}
+
+function viewDetalle(datos) {
+    response = getJson({
+        url: "servidor/sProforma.php",
+        data: {
+            accion: "list",
+            op: "DetallePorforma",
+            idProforma: datos.id
+        }
+    });
+    $("#modal-view-detalle table").bootstrapTable("load", response);
+    $("#modal-view-detalle").modal("show");
 }

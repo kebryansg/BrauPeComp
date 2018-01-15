@@ -23,12 +23,13 @@
             >
             <thead>
                 <tr>
-                    <th data-field="state" data-checkbox="true"></th>
+                    <th data-field="state" data-checkbox="true" ></th>
                     <th data-field="id" class="col-md-1">N° Proforma</th>
-                    <th data-field="fecha" class="col-md-3">Fecha</th>
-                    <th data-field="ganancia" class="col-md-2">Tipo Ganancia</th>
-                    <th data-field="observacion">Observacion</th>
-                    <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultBtnAccion" data-events="defaultEvent" >Acción</th>
+                    <th data-field="fecha" class="col-md-3" data-formatter="defaultFecha">Fecha</th>
+                    <th data-field="ganancia" class="col-md-1">Tipo Ganancia</th>
+                    <th data-field="nombres">Cliente</th>
+                    <!--<th data-field="observacion">Observacion</th>-->
+                    <th data-field="accion" class="col-md-1" data-align="center" data-formatter="BtnAccion" data-events="defaultEvent" >Acción</th>
                 </tr>
             </thead>
         </table>
@@ -36,35 +37,57 @@
     <div Registro class="hidden">
         <form save action="servidor/sProforma.php" role="proforma">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="" class="control-label">N° Proforma</label>
-                        <input name="id" type="text" class="form-control" readonly value="0">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="" class="control-label">N° Proforma</label>
+                                <input name="id" type="text" class="form-control" readonly value="0">
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="" class="control-label">Cliente</label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button type="button" data-toggle="modal" data-target="#modal-find-cliente" class="btn btn-primary"><i class="fa fa-search"></i> </button>
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-new-cliente"><i class="fa fa-plus"></i> </button>
+                                        </div>
+                                        <input type="text" nombres class="form-control" style="width: 70%;" readonly>
+                                        <input type="text" class="hidden" name="IdCliente" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="" class="control-label">Fecha</label>
-                        <input fecha name="fecha" type="text" class="form-control" readonly required>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="" class="control-label">$ Valor Envio</label>
+                                <input myDecimal name="envio" type="text" class="form-control" value="0">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="" class="control-label">Fecha</label>
+                                <input fecha name="fecha" type="text" class="form-control" readonly required>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="" class="control-label">Cliente</label>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pull-right">
-                                    <button type="button" data-toggle="modal" data-target="#modal-find-cliente" class="btn btn-primary"><i class="fa fa-search"></i> </button>
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-new-cliente"><i class="fa fa-plus"></i> </button>
-                                </div>
-                                <input type="text" nombres class="form-control" style="width: 70%;" readonly>
-                                <input type="text" class="hidden" name="cliente" required>
-                            </div>
-                        </div>
-
+                        <label for="" class="control-label">Garantia</label>
+                        <textarea name="garantia" id="" cols="30" rows="4" class="form-control"></textarea>
                     </div>
                 </div>
+
             </div>
+
             <div class="row">
                 <div toolbar id="toolbarDetalle" class="btn-group">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-new" data-tab="#detalleProforma">
@@ -98,8 +121,24 @@
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="pull-right">
+                    <div class="pull-right" style="display: flex; align-items: flex-end;flex-direction: column;">
                         <div class="form-inline">
+                            <label class="control-label">Subtotal</label>
+                            <input id="txtSubtotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
+                        </div>
+                        <div class="form-inline">
+                            <label class="control-label">Valor Comisión</label>
+                            <input myDecimal type="text" name='ganancia' class="form-control input-sm" style="text-align: right;">
+                        </div>
+                        <div class="form-inline">
+                            <label class="control-label">Total Comisión</label>
+                            <input id="txtComision" readonly type="text" class="form-control input-sm" style="text-align: right;">
+                        </div>
+                        <div class="form-inline">
+                            <label class="control-label">Total</label>
+                            <input id="txtTotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
+                        </div>
+                        <!--<div class="form-inline">
                             <div class="form-group">
                                 <label class="control-label">Subtotal</label>
                                 <input id="txtSubtotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
@@ -116,7 +155,7 @@
                                 <label class="control-label">Total</label>
                                 <input id="txtTotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -258,6 +297,33 @@
                     </h4>
                 </div>
                 <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-view-detalle" class="modal fade"   >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                        Detalle - Productos
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table
+                        detalle
+                        >
+                        <thead>
+                            <tr>
+                                <th data-field="cantidad" class="col-md-1" data-align="center">Cantidad</th>
+                                <th data-field="producto">Producto</th>
+                                <th data-field="precioProveedor" class="col-md-1" data-align="center" >$ Proveedor</th>
+                                <th data-field="precioComision" class="col-md-1" data-align="center">$ Comision</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>

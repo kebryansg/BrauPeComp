@@ -2,7 +2,7 @@
 <?php
 require_once "init.php";
 include_once 'MVC/Model/ConfiguracionDaoImp.php';
-
+$logo = "resource/ConfigIMG/logo.png";
 $datos = ConfiguracionDaoImp::get()[0];
 ?>
 
@@ -28,6 +28,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Theme style -->
         <link rel="stylesheet" href="resource/Plantilla/dist/css/AdminLTE.css">
         <link rel="stylesheet" href="resource/dist/css/style.css">
+<!--        <link rel="stylesheet" href="resource/dist/css/file.css">-->
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
               page. However, you can choose any other skin. Make sure you
               apply the skin class to the body tag so the changes take effect. -->
@@ -59,6 +60,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="resource/Moment/moment-with-locales.js"></script>
         
         <script src="resource/dist/js/jquery.inputmask.bundle.min.js"></script>
+        <script src="resource/dist/js/html2canvas.min.js"></script>
+        <!--<script src="resource/dist/js/canvas2image.js"></script>-->
         <script src="resource/dist/js/style.js"></script>
         <script src="resource/dist/js/loads.js"></script>
         
@@ -115,7 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
 
-                                    <img src="<?php echo $datos["logo"]; ?>" class="user-image" alt="User Image">
+                                    <img src="<?php echo $logo; ?>" class="user-image" alt="User Image">
                                     <!--<img src="resource/Plantilla/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">-->
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                     <span class="hidden-xs">Braulio</span>
@@ -123,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="<?php echo $datos["logo"]; ?>" class="img-circle" alt="User Image">
+                                        <img src="<?php echo $logo; ?>" class="img-circle" alt="User Image">
 
                                         <p>
                                             Braulio - Admin
@@ -154,7 +157,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo $datos["logo"]; ?>" width="160"  alt="User Image">
+                            <img src="<?php echo $logo; ?>" width="160"  alt="User Image">
                         </div>
                         <div class="pull-left info">
                             <p>Kebryan</p>

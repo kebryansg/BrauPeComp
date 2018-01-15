@@ -1,3 +1,9 @@
+.bx{
+    outline: solid 1px red;
+}
+.bold{
+    font-weight: bold;
+}
 hr.style1{
 	border-top: 1px solid #8c8b8b;
 }
