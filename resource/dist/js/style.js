@@ -73,6 +73,19 @@ $(function () {
         $(this).trigger("reset");
         hideRegistro();
     });
+    $(document).on("submit", "form[modal-save]", function (e) {
+        e.preventDefault();
+        datos = {
+            url: $(this).attr("action"),
+            dt: {
+                accion: "save",
+                op: $(this).attr("role"),
+                datos: $(this).serializeObject()
+            }
+        };
+        save_global(datos);
+        $(this).closest(".modal").modal("hide");
+    });
 
     $(document).on("click", "button[name='btn_del_individual']", function (e) {
         div_id = $(this).closest("div[toolbar]").attr("id");
@@ -102,6 +115,14 @@ $(function () {
             dropdownMenu.hide();
             dropdownMenu = null;
         }
+    });
+
+    $(document).on("click", "div[tipo] button[refresh]", function (e) {
+        div = $(this).closest("div[tipo]");
+        fnc = $(div).attr("data-fn");
+        select = $(div).find("select");
+        datos = self[fnc]();
+        loadCbo(datos, select);
     });
 
 });
@@ -168,6 +189,7 @@ function showRegistro() {
 
     $("div[Registro]").fadeIn("slow");
     $("div[Registro]").removeClass("hidden");
+    $("div[tipo] button[refresh]").click();
 }
 
 function hideRegistro() {
@@ -247,4 +269,34 @@ function openWindowWithPost(url, data) {
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
+}
+
+function loadCbo(data, select) {
+    $(select).html("");
+    $.each(data.rows, function (i, row) {
+        option = document.createElement("option");
+        $(option).attr("value", row.ID);
+        $(option).html(row.descripcion);
+        $(select).append(option);
+    });
+    $(select).selectpicker("refresh");
+}
+
+function initModalNew(dataUrl) {
+    html = "";
+    $.ajax({
+        url: dataUrl,
+        async: false,
+        dataType: 'html',
+        success: function (html2) {
+            div = $(html2).find("div[Registro]");
+            $(div).removeClass("hidden");
+            $(div).removeAttr("id");
+            $(div).find("form").removeAttr("save");
+            $(div).find("form").attr("modal-save", "");
+            $(div).find('.selectpicker').selectpicker();
+            html = div;
+        }
+    });
+    return html;
 }

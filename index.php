@@ -18,7 +18,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="resource/Plantilla/bootstrap/dist/css/bootstrap.min.css">
-
+        <!-- Bootstrap Select -->
+        <link rel="stylesheet" href="resource/bootstrap/bootstrap-select/bootstrap-select.min.css">
+        <!-- Bootstrap Table -->
         <link rel="stylesheet" href="resource/table/bootstrap-table.min.css">
 
         <!-- Font Awesome -->
@@ -28,7 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Theme style -->
         <link rel="stylesheet" href="resource/Plantilla/dist/css/AdminLTE.css">
         <link rel="stylesheet" href="resource/dist/css/style.css">
-<!--        <link rel="stylesheet" href="resource/dist/css/file.css">-->
+        <!--        <link rel="stylesheet" href="resource/dist/css/file.css">-->
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
               page. However, you can choose any other skin. Make sure you
               apply the skin class to the body tag so the changes take effect. -->
@@ -54,19 +56,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- BootStrapTable -->
         <script src="resource/table/bootstrap-table.min.js"></script>
         <script src="resource/table/locale/bootstrap-table-es-ES.min.js"></script>
+        
+        <!-- BootStrap Select -->
+        <script src="resource/bootstrap/bootstrap-select/bootstrap-select.min.js"></script>
         <!-- AdminLTE App -->
         <script src="resource/Plantilla/dist/js/adminlte.js"></script>
+        <!-- Moment -->
         <script src="resource/Moment/moment.js"></script>
         <script src="resource/Moment/moment-with-locales.js"></script>
-        
+        <!-- Input Mask -->
         <script src="resource/dist/js/jquery.inputmask.bundle.min.js"></script>
         <script src="resource/dist/js/html2canvas.min.js"></script>
         <!--<script src="resource/dist/js/canvas2image.js"></script>-->
         <script src="resource/dist/js/style.js"></script>
         <script src="resource/dist/js/loads.js"></script>
-        
-        
-        
+
+
+
     </head>
     <!--
     BODY TAG OPTIONS:
@@ -186,6 +192,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
                         <li >
+                            <a href="MVC/View/Catalog/garantia.php">
+                                <i class="fa fa-handshake-o"></i> <span>Garantia</span>
+                            </a>
+                        </li>
+                        <li >
                             <a href="MVC/View/Proform/proforma.php">
                                 <i class="fa fa-file-archive-o"></i> <span>Proformas</span>
                             </a>
@@ -211,7 +222,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="content-wrapper" id="containPages">
 
                 <?php
-                    include './MVC/View/Proform/proforma.php';
+                include './MVC/View/Proform/proforma.php';
                 ?>
             </div>
             <!-- /.content-wrapper -->

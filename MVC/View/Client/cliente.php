@@ -39,7 +39,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="" class="control-label">Tipo Identificación</label>
-                        <select name="tipoidentificacion" class="form-control" required>
+                        <select name="tipoidentificacion" class="form-control selectpicker" required>
                             <option value="1">Cedúla</option>
                             <option value="2">RUC</option>
                         </select>

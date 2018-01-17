@@ -1,4 +1,4 @@
-function loadCliente(params){
+function loadCliente(params) {
     json_data = {
         data: $.extend({}, {
             op: "cliente",
@@ -9,7 +9,7 @@ function loadCliente(params){
     params.success(getJson(json_data));
 }
 
-function loadProducto(params){
+function loadProducto(params) {
     json_data = {
         data: $.extend({}, {
             op: "producto",
@@ -20,7 +20,7 @@ function loadProducto(params){
     params.success(getJson(json_data));
 }
 
-function loadProforma(params){
+function loadProforma(params) {
     json_data = {
         data: $.extend({}, {
             op: "proforma",
@@ -29,4 +29,23 @@ function loadProforma(params){
         url: "servidor/sProforma.php"
     };
     params.success(getJson(json_data));
+}
+
+function loadGarantia(params = null) {
+    data = {
+        op: "garantia",
+        accion: "list"
+    };
+    if (params !== null) {
+        json_data = {
+            data: $.extend({}, data, params.data),
+            url: "servidor/sCatalog.php"
+        };
+        params.success(getJson(json_data));
+    } else {
+        return getJson({
+            data: data,
+            url: "servidor/sCatalog.php"
+        });
+}
 }

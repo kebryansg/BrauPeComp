@@ -46,7 +46,21 @@ window.editAccion = {
 };
 
 $(function () {
-    
+
+    $('#modal-new2').on({
+        'show.bs.modal': function (e) {
+//console.log($(e.relatedTarget).closest(".input-group"));
+            dataUrl = $(e.relatedTarget).attr("data-url");
+            modal = $(e.relatedTarget).attr("data-target");
+            html = initModalNew(dataUrl);
+            $(modal + ' .modal-body').html(html);
+        },
+        'hidden.bs.modal': function(e){
+            // Para que el refesh sea automatico
+        }
+    });
+
+
     $("button[name='btn_add']").click();
     $("table[init]").bootstrapTable(TablePaginationDefault);
 

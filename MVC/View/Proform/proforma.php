@@ -37,55 +37,57 @@
     <div Registro class="hidden">
         <form save action="servidor/sProforma.php" role="proforma">
             <div class="row">
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="" class="control-label">N° Proforma</label>
-                                <input name="id" type="text" class="form-control" readonly value="0">
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="" class="control-label">Cliente</label>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="pull-right">
-                                            <button type="button" data-toggle="modal" data-target="#modal-find-cliente" class="btn btn-primary"><i class="fa fa-search"></i> </button>
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-new-cliente"><i class="fa fa-plus"></i> </button>
-                                        </div>
-                                        <input type="text" nombres class="form-control" style="width: 70%;" readonly>
-                                        <input type="text" class="hidden" name="IdCliente" required>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="" class="control-label">N° Proforma</label>
+                        <input name="id" type="text" class="form-control" readonly value="0">
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="" class="control-label">$ Valor Envio</label>
-                                <input myDecimal name="envio" type="text" class="form-control" value="0">
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="" class="control-label">Fecha</label>
+                        <input fecha name="fecha" type="text" class="form-control" readonly required>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="" class="control-label">Cliente</label>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" data-toggle="modal" data-target="#modal-find-cliente" class="btn btn-primary"><i class="fa fa-search"></i> </button>
+                                    <button type="button" class="btn btn-success" data-url="MVC/View/Client/cliente.php" data-toggle="modal" data-target="#modal-new2"><i class="fa fa-plus"></i> </button>
+                                </div>
+                                <input type="text" nombres class="form-control" style="width: 70%;" readonly>
+                                <input type="text" class="hidden" name="IdCliente" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="" class="control-label">Fecha</label>
-                                <input fecha name="fecha" type="text" class="form-control" readonly required>
-                            </div>
-                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="" class="control-label">$ Valor Envio</label>
+                        <input myDecimal name="envio" type="text" class="form-control" value="0">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="" class="control-label">Garantia</label>
-                        <textarea name="garantia" id="" cols="30" rows="4" class="form-control"></textarea>
+                        <div tipo data-fn="loadGarantia" class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-primary" data-url="MVC/View/Catalog/garantia.php" data-toggle="modal" data-target="#modal-new2"><i class="fa fa-plus"></i> </button>
+                                    <button type="button" refresh class="btn btn-success"><i class="fa fa-refresh"></i> </button>
+                                </div>
+                                <select name="IdGarantia" class="selectpicker form-control" data-width="70%"></select>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
             </div>
 
             <div class="row">
@@ -138,24 +140,6 @@
                             <label class="control-label">Total</label>
                             <input id="txtTotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
                         </div>
-                        <!--<div class="form-inline">
-                            <div class="form-group">
-                                <label class="control-label">Subtotal</label>
-                                <input id="txtSubtotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Valor Comisión</label>
-                                <input myDecimal type="text" name='ganancia' class="form-control input-sm" style="text-align: right;">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Total Comisión</label>
-                                <input id="txtComision" readonly type="text" class="form-control input-sm" style="text-align: right;">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Total</label>
-                                <input id="txtTotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
-                            </div>
-                        </div>-->
                     </div>
                 </div>
             </div>
@@ -255,7 +239,6 @@
 
     </div>
 
-
     <div id="modal-find-cliente" class="modal fade"   >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -286,14 +269,14 @@
             </div>
         </div>
     </div>
-    <div id="modal-new-cliente" class="modal fade"   >
+    <div id="modal-new2" class="modal fade"   >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">
                         <i class="fa fa-plus" aria-hidden="true"></i>
-                        Nuevo Cliente
+                        Nuevo Registro
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -301,7 +284,7 @@
             </div>
         </div>
     </div>
-    <div id="modal-view-detalle" class="modal fade"   >
+    <div id="modal-view-detalle" class="modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
