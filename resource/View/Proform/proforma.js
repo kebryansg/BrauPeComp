@@ -61,7 +61,7 @@ $(function () {
     });
 
 
-    $("button[name='btn_add']").click();
+    //$("button[name='btn_add']").click();
     $("table[init]").bootstrapTable(TablePaginationDefault);
 
     $("table[find]").bootstrapTable($.extend({}, TablePaginationDefault, {

@@ -25,15 +25,18 @@
                 <tr>
                     <th data-field="state" data-checkbox="true" ></th>
                     <th data-field="id" class="col-md-1">N° Proforma</th>
-                    <th data-field="fecha" class="col-md-3" data-formatter="defaultFecha">Fecha</th>
-                    <th data-field="ganancia" class="col-md-1">Tipo Ganancia</th>
+                    <th data-field="fecha" class="col-md-2" data-formatter="defaultFecha">Fecha</th>
+                    <th data-field="ganancia" class="col-md-1">Ganancia</th>
                     <th data-field="nombres">Cliente</th>
+                    <th data-field="garantia">Garantia</th>
+                    
                     <!--<th data-field="observacion">Observacion</th>-->
                     <th data-field="accion" class="col-md-1" data-align="center" data-formatter="BtnAccion" data-events="defaultEvent" >Acción</th>
                 </tr>
             </thead>
         </table>
     </div>
+    
     <div Registro class="hidden">
         <form save action="servidor/sProforma.php" role="proforma">
             <div class="row">

@@ -45,12 +45,12 @@ $(function () {
         showRegistro();
     });
 
+    $(document).on("click", "form[modal-save] button[type='reset']", function (e) {
+        $(this).closest(".modal").modal("hide");
+    });
     $(document).on("click", "form[save] button[type='reset']", function (e) {
-        if ($(this).closest(".modal-body").length > 0) {
-            $(this).closest(".modal").modal("hide");
-        } else {
-            hideRegistro();
-        }
+
+        hideRegistro();
     });
 
     $(document).on("submit", "form[save]", function (e) {

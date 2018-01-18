@@ -6,6 +6,9 @@ $(function () {
 
     $("td[name='fecha']").html(formatView(datos.fecha));
 
+    $('[name="envio"]').html(datos.envio);
+    $('[name="garantia"]').html(datos.garantia);
+
     /*
      * Cliente
      */
@@ -34,33 +37,67 @@ $(function () {
     });
     detalles_format = [];
     subtotal = 0;
+    subtotal_unit = 0;
     iva = 0;
 
+    /*$.each(detalles, function (i, row) {
+     detalles_format.push({
+     cantidad: row.cantidad,
+     producto: row.producto,
+     precioUnit: (parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)).toFixed(2),
+     precioTotal: ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad)).toFixed(2)
+     });
+     subtotal += ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
+     });*/
+
+
     $.each(detalles, function (i, row) {
-        detalles_format.push({
-            cantidad: row.cantidad,
-            producto: row.producto,
-            precioUnit: (parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)).toFixed(2),
-            precioTotal: ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad)).toFixed(2)
-        });
+        tr = document.createElement("tr");
+
+        $(tr).html("<td>" + row.cantidad + "</td> <td>" + row.producto + "</td>");
+        subtotal_unit += parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12);
         subtotal += ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
+        $("table[detalle] tbody").append(tr);
     });
+
+    subtotal_unit += parseFloat(datos.ganancia) / 1.12;
+    subtotal += parseFloat(datos.ganancia) / 1.12;
+
+    $("table[detalle] tbody tr:first").append("<td rowspan='" + detalles.length + "'>" + subtotal_unit.toFixed(2) + "</td> <td rowspan='" + detalles.length + "'> " + subtotal.toFixed(2) + "</td> ");
+    $("table[detalle]").bootstrapTable();
+
+
+
     iva = (subtotal * 0.12);
 
     $("input[name='subtotal']").val(subtotal.toFixed(2));
     $("input[name='iva']").val(iva.toFixed(2));
     $("input[name='total']").val((subtotal + iva).toFixed(2));
-    
+
     $("#detalle").bootstrapTable();
     $("#detalle").bootstrapTable("load", detalles_format);
     /*
      * Config
      */
+    config = getJson({
+        url: "../../../servidor/sConfigure.php",
+        data: {
+            accion: "get",
+            op: "configuracion"
+        }
+    })[0];
 
 
+    $("td[name='ruc']").html(config.ruc);
+    $("td[name='celular']").html(config.celular);
+    $("td[name='direccion']").html(config.direccion);
+    $("td[name='email']").html(config.email);
+
+
+    /*
+     * Generar IMG
+     */
     var element = $("#proforma")[0];
-
-
     $("#btnGenerarIMG").on('click', function () {
         $("a[dw]").removeClass("hidden");
 
@@ -69,8 +106,6 @@ $(function () {
             var image = canvas.toDataURL();
             $("a[dw]").attr("download", 'proforma.png');
             $("a[dw]").attr("href", image);
-            //a.href = image;
-            //window.location.href = image;
         });
     });
 });

@@ -10,7 +10,7 @@ class Proforma extends ModelSQL {
     public $IdCliente;
     public $Ganancia;
     public $Envio;
-    public $Garantia;
+    public $IdGarantia;
 
     function __construct() {
         $this->Id = 0;

@@ -53,15 +53,15 @@
                     <tbody>
                         <tr>
                             <td class="thCabezera">RUC:</td>
-                            <td></td>
+                            <td name="ruc"></td>
                             <td class="thCabezera">CEL:</td>
-                            <td></td>
+                            <td name="celular"></td>
                         </tr>
                         <tr>
                             <td class="thCabezera">DIRECCIÓN:</td>
-                            <td></td>
+                            <td name="direccion"></td>
                             <td class="thCabezera">E-MAIL:</td>
-                            <td></td>
+                            <td name="email"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -90,7 +90,7 @@
                     </tbody>
                 </table>
                 <br>
-                <table id="detalle"  >
+                <!--<table id="detalle"  >
                     <thead>
                         <tr>
                             <th data-field="cantidad" class="col-md-1" data-align='center'>Cantidad</th>
@@ -100,6 +100,18 @@
                         </tr>
                     </thead>
                 </table>
+                <br>-->
+                <table detalle >
+                    <thead>
+                        <tr>
+                            <th data-field="cantidad" class="col-md-1" data-align='center'>Cantidad</th>
+                            <th data-field="producto">Producto</th>
+                            <th data-field="precioUnit" class="col-md-2" data-align='center'>Precio Unit.</th>
+                            <th data-field="precioTotal" class="col-md-2" data-align='center'>Precio Total</th>
+                        </tr>
+                    </thead>
+                    <tbody> </tbody>
+                </table>
                 <br>
                 <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
                     <div id="notas" class="col-md-7">
@@ -108,7 +120,7 @@
                         </p>-->
                         <dl >
                             <dt>Garantia:</dt>
-                            <dd class="text-justify">
+                            <dd class="text-justify" name="garantia">
                                 ANTE DEFECTOS DE FABRICACIÓN: 3 Años en Monitor, mainboard y procesador.
                                 1 año en resto de componentes y partes.</dd>
                             <br>
