@@ -33,8 +33,9 @@ class ClienteDaoImp {
     public static function _list($params, &$count) {
         $conn = (new C_MySQL())->open();
         $banderapag = ($params["top"] > 0 ) ? "limit " . $params['top'] . " offset " . $params['pag'] : "";
+        $where = ($params["buscar"] != NULL) ? "where nombres like '%" . $params["buscar"] . "%' or identificacion like '%" . $params["buscar"] . "%' " : "";
         //where estado = 'ACT'
-        $sql = "select SQL_CALC_FOUND_ROWS * from cliente $banderapag ;";
+        $sql = "select SQL_CALC_FOUND_ROWS * from cliente $where  $banderapag ;";
 
         $list = C_MySQL::returnListAsoc($conn, $sql);
         $count = C_MySQL::row_count($conn);

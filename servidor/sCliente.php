@@ -14,7 +14,8 @@ switch ($accion) {
     case "list":
         $params = array(
             "top" => (isset($_POST["limit"])) ? $_POST["limit"] : 0,
-            "pag" => (isset($_POST["offset"])) ? $_POST["offset"] : 0
+            "pag" => (isset($_POST["offset"])) ? $_POST["offset"] : 0,
+            "buscar" => (isset($_POST["search"])) ? $_POST["search"] : NULL
         );
         //$top = (isset($_POST["limit"])) ? $_POST["limit"] : 0;
         //$pag = (isset($_POST["offset"])) ? $_POST["offset"] : 0;

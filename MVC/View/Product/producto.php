@@ -8,10 +8,10 @@
 <section class="content container-fluid">
     <div Listado>
         <div id="toolbar" class="btn-group">
-            <button type="button" name="btn_add" class="btn btn-success">
+            <button type="button" name="btn_add" class="btn btn-sm btn-success">
                 <i class="glyphicon glyphicon-plus"></i> Agregar
             </button>
-            <button type="button" name="btn_del" class="btn btn-danger">
+            <button type="button" name="btn_del" class="btn btn-sm btn-danger">
                 <i class="glyphicon glyphicon-trash"></i> Eliminar
             </button>
         </div>

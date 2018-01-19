@@ -180,6 +180,20 @@ function AccSeleccion() {
     return '<button select type="button" class="btn btn-sm btn-info"> <i class="fa fa-check"></i> Seleccionar </button>';
 }
 
+function duplicate(datos){
+    $("button[name='btn_add']").click();
+    response = getJson({
+        url: "servidor/sProforma.php",
+        data: {
+            accion: "list",
+            op: "DetallePorforma",
+            idProforma: datos.id
+        }
+    });
+    $("#detalleProforma").bootstrapTable("load", response);
+    calculoTb();
+}
+
 function edit(datos) {
     form = "div[Registro] form";
     console.log(datos);
@@ -232,6 +246,7 @@ function BtnAccion(value, rowData, index) {
             '<ul class="dropdown-menu dropdown-menu-left" >' +
             '<li name="edit"><a href="#"> <i class="fa fa-edit"></i> Editar</a></li>' +
             ' <li name="view" ><a href="#"> <i class="fa fa-tasks"></i> Vista Previa</a></li>' +
+            ' <li name="duplicate" ><a href="#"> <i class="fa fa-copy"></i> Duplicar</a></li>' +
             ' <li name="download" ><a href="#"> <i class="fa fa-download"></i> Export</a></li>' +
             '</ul>' +
             '</div>';

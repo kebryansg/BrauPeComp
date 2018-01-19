@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<link href="resource/file_input/fileinput.min.css" rel="stylesheet" />
+<!--<link href="resource/file_input/fileinput.min.css" rel="stylesheet" />-->
 
 
 <section class="content-header">
@@ -12,14 +12,16 @@
 <section class="content container-fluid">
 
     <ul class="nav nav-tabs">
-        <li class="active" ><a data-toggle="tab" href="#menu1">Información</a></li>
-        <li><a data-toggle="tab" href="#menu2">Logotipo</a></li>
+        <li ><a data-toggle="tab" href="#menu1">Información</a></li>
+        <li class="active" ><a data-toggle="tab" href="#menu2">Logotipo</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="menu1" class="tab-pane fade in active">
-            <br>
-            <form save action="servidor/sConfigure.php" role="configuracion" enctype="multipart/form-data">
+        
+            <div id="menu1" class="tab-pane fade ">
+                <form save action="servidor/sConfigure.php" role="configuracion">
+                <br>
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -60,7 +62,7 @@
                     <div class="col-md-12">
                         <div class="pull-left">
                             <button id="btnRefrescar" type="button" class="btn btn-success" title="Refrescar Información">
-                                <i class="fa fa-refresh"></i>
+                                <i class="fa fa-refresh"> </i> Refrescar
                             </button>
                         </div>
                         <div class="pull-right">
@@ -73,21 +75,24 @@
                         </div>
                     </div>
                 </div>
-                
-                <input id="imagen2" name="imagen" type="file">
-
-            </form>
-        </div>
-        <div id="menu2" class="tab-pane fade">
+</form>
+            </div>
+        
+        <div id="menu2" class="tab-pane fade in active">
             <br>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="file-loading">
-                        <input id="imagen" name="imagen" type="file">
+                <form id="updateImg" action="" method="post" enctype="multipart/form-data">
+                    <div class="col-md-3">
+                        <input type="file" name="file" id="file" class="hidden" accept="image/*" />
+                        <button type="button" onclick="$('#file').click()" class="btn btn-danger"> <i class="fa fa-download"></i> Escoger IMG </button>
+                        <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Actualizar</button>
+                        <br>
                     </div>
-                </div>
-
+                    <div class="col-md-6">
+                        <img name="logo" width="100%" style="margin-top: 2px; " >
+                    </div>
             </div>
+
         </div>
     </div>
 
@@ -97,24 +102,18 @@
 
 </section>
 
-<script src="resource/file_input/fileinput.min.js" type="text/javascript"></script>
-<script src="resource/file_input/locales/es.js" type="text/javascript"></script>
+<!--<script src="resource/file_input/fileinput.min.js" type="text/javascript"></script>
+<script src="resource/file_input/locales/es.js" type="text/javascript"></script>-->
 <script src="resource/View/Configure/configure.js" type="text/javascript"></script>
 <script>
 
-    /*$("#btnGenerarFormato").click(function () {
-     url = "servidor/sExcel.php?op=formato";
-     window.open(url, '_blank');
-     });*/
-
-    $("#imagen").fileinput({
-        uploadUrl: "servidor/sConfigure.php",
-        language: 'es',
-        uploadExtraData: {
-            accion: "save",
-            op: "updateLogo"
-        },
-        allowedFileExtensions: ['png', 'jpg']
-
-    });
+                            /*$("#imagen").fileinput({
+                             uploadUrl: "servidor/sConfigure.php",
+                             language: 'es',
+                             uploadExtraData: {
+                             accion: "save",
+                             op: "updateLogo"
+                             },
+                             allowedFileExtensions: ['png', 'jpg']
+                             });*/
 </script>

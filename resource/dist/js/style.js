@@ -227,7 +227,14 @@ window.defaultEvent = {
     },
     'click li[name="download"]': function (e, value, row, index) {
         openWindowWithPost("MVC/View/Proform/fileProforma.php", row);
+    },
+    'click li[name="duplicate"]': function (e, value, row, index) {
+        //showRegistro();
+        duplicate(row);
+        
+        //openWindowWithPost("MVC/View/Proform/fileProforma.php", row);
     }
+    
 
 
 };
