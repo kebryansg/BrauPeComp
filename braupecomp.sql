@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Xammp
+ Source Server         : LocalMySQL
  Source Server Type    : MySQL
- Source Server Version : 100129
+ Source Server Version : 50720
  Source Host           : localhost:3306
  Source Schema         : braupecomp
 
  Target Server Type    : MySQL
- Target Server Version : 100129
+ Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 11/01/2018 17:55:07
+ Date: 19/01/2018 20:51:49
 */
 
 SET NAMES utf8mb4;
@@ -31,13 +31,7 @@ CREATE TABLE `cliente`  (
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `direccion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of cliente
--- ----------------------------
-INSERT INTO `cliente` VALUES (1, 'Consumidor Final', '1', '9999999999999', '9999999999', '9999999999', 'consumidor@gmail.com', 'El Empalme');
-INSERT INTO `cliente` VALUES (6, 'SUAREZ GUZMAN KEVIN BRYAN', '1', '1206249391', '0986735012', '0986735012', 'kebryansg@gmail.com', 'Quevedo, San Camilo');
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for configuracion
@@ -58,7 +52,7 @@ CREATE TABLE `configuracion`  (
 -- ----------------------------
 -- Records of configuracion
 -- ----------------------------
-INSERT INTO `configuracion` VALUES (1, 'BrauPeComp', 'El empalme', '0990', '0999999999', '0987654321', 'BrauPeConfig@gmail.com', 'resource/ConfigIMG/vlcsnap-2017-01-04-18h36m53s662.png');
+INSERT INTO `configuracion` VALUES (1, 'BrauPeComp Tecnologies', 'SAN VICENTE Y SALINAS, CALLE 21 (Mz - 03; S - 05)', ' 1311136954001 ', '0999999999', ' 099789073', 'brau_ps@hotmail.com', 'resource/ConfigIMG/logo.png');
 
 -- ----------------------------
 -- Table structure for detalleproforma
@@ -66,16 +60,26 @@ INSERT INTO `configuracion` VALUES (1, 'BrauPeComp', 'El empalme', '0990', '0999
 DROP TABLE IF EXISTS `detalleproforma`;
 CREATE TABLE `detalleproforma`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `proforma` int(11) NOT NULL,
-  `producto` int(11) NOT NULL,
+  `idproforma` int(11) NOT NULL,
+  `idproducto` int(11) NOT NULL,
   `cantidad` int(11) NULL DEFAULT NULL,
   `precioProveedor` decimal(12, 2) NULL DEFAULT NULL,
   `precioComision` decimal(12, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_detalleproforma__producto`(`producto`) USING BTREE,
-  INDEX `idx_detalleproforma__proforma`(`proforma`) USING BTREE,
-  CONSTRAINT `fk_detalleproforma__producto` FOREIGN KEY (`producto`) REFERENCES `producto` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_detalleproforma__proforma` FOREIGN KEY (`proforma`) REFERENCES `proforma` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `idx_detalleproforma__producto`(`idproducto`) USING BTREE,
+  INDEX `idx_detalleproforma__proforma`(`idproforma`) USING BTREE,
+  CONSTRAINT `fk_detalleproforma__producto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_detalleproforma__proforma` FOREIGN KEY (`idproforma`) REFERENCES `proforma` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for garantia
+-- ----------------------------
+DROP TABLE IF EXISTS `garantia`;
+CREATE TABLE `garantia`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
@@ -89,13 +93,7 @@ CREATE TABLE `producto`  (
   `observacion` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   FULLTEXT INDEX `index_name`(`descripcion`)
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of producto
--- ----------------------------
-INSERT INTO `producto` VALUES (1, 'Core i3', 'ACT', '');
-INSERT INTO `producto` VALUES (2, 'Core i7', 'ACT', 'Septima Generación');
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for proforma
@@ -103,20 +101,29 @@ INSERT INTO `producto` VALUES (2, 'Core i7', 'ACT', 'Septima Generación');
 DROP TABLE IF EXISTS `proforma`;
 CREATE TABLE `proforma`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `fecha` datetime(0) NULL DEFAULT NULL,
-  `cliente` int(11) NULL DEFAULT NULL,
+  `codigo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `fecha` datetime(0) NOT NULL,
+  `idcliente` int(11) NULL DEFAULT NULL,
   `ganancia` decimal(12, 2) NOT NULL,
+  `envio` decimal(12, 2) NULL DEFAULT NULL,
+  `idgarantia` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_proforma__cliente`(`cliente`) USING BTREE,
-  CONSTRAINT `fk_proforma__cliente` FOREIGN KEY (`cliente`) REFERENCES `cliente` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+  INDEX `idx_proforma__cliente`(`idcliente`) USING BTREE,
+  INDEX `fk_proforma__garantia`(`idgarantia`) USING BTREE,
+  CONSTRAINT `fk_proforma__cliente` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_proforma__garantia` FOREIGN KEY (`idgarantia`) REFERENCES `garantia` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of proforma
+-- View structure for viewdetalleproforma
 -- ----------------------------
-INSERT INTO `proforma` VALUES (1, '', '2018-01-11 00:00:00', 1, 0.00);
-INSERT INTO `proforma` VALUES (2, '', '2018-01-11 00:00:00', 6, 50.00);
-INSERT INTO `proforma` VALUES (3, '', '2018-01-11 00:00:00', 6, 0.00);
+DROP VIEW IF EXISTS `viewdetalleproforma`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `viewdetalleproforma` AS select `dp`.`id` AS `id`,`dp`.`idproforma` AS `idproforma`,`dp`.`idproducto` AS `idproducto`,`dp`.`cantidad` AS `cantidad`,`dp`.`precioProveedor` AS `precioProveedor`,`dp`.`precioComision` AS `precioComision`,`p`.`descripcion` AS `producto` from (`detalleproforma` `dp` join `producto` `p` on((`p`.`id` = `dp`.`idproducto`)));
+
+-- ----------------------------
+-- View structure for viewproforma
+-- ----------------------------
+DROP VIEW IF EXISTS `viewproforma`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `viewproforma` AS select `p`.`id` AS `id`,`p`.`codigo` AS `codigo`,`p`.`fecha` AS `fecha`,`p`.`idcliente` AS `idcliente`,`p`.`ganancia` AS `ganancia`,`p`.`envio` AS `envio`,`p`.`idgarantia` AS `idgarantia`,`c`.`nombres` AS `nombres`,`g`.`descripcion` AS `garantia` from ((`proforma` `p` join `cliente` `c` on((`c`.`id` = `p`.`idcliente`))) join `garantia` `g` on((`g`.`id` = `p`.`idgarantia`)));
 
 SET FOREIGN_KEY_CHECKS = 1;
