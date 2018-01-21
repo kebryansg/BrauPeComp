@@ -38,11 +38,10 @@ $(function () {
     });
 
     $(document).on("click", "button[name='btn_add']", function (e) {
-
+        showRegistro();
         if (typeof window.initRegistro === 'function') {
             initRegistro();
         }
-        showRegistro();
     });
 
     $(document).on("click", "form[modal-save] button[type='reset']", function (e) {
@@ -189,6 +188,7 @@ function showRegistro() {
 
     $("div[Registro]").fadeIn("slow");
     $("div[Registro]").removeClass("hidden");
+    $("div[Registro] .selectpicker").selectpicker();
     $("div[tipo] button[refresh]").click();
 }
 
@@ -199,6 +199,7 @@ function hideRegistro() {
         $("div[Registro] table").bootstrapTable("removeAll");
     }
     $("div[Listado]").fadeIn("slow");
+    $("div[Listado] table").bootstrapTable("refresh");
     $("div[Listado]").removeClass("hidden");
     $("div[Registro] form").removeData("id");
 }
@@ -231,10 +232,10 @@ window.defaultEvent = {
     'click li[name="duplicate"]': function (e, value, row, index) {
         //showRegistro();
         duplicate(row);
-        
+
         //openWindowWithPost("MVC/View/Proform/fileProforma.php", row);
     }
-    
+
 
 
 };
@@ -282,7 +283,7 @@ function loadCbo(data, select) {
     $(select).html("");
     $.each(data.rows, function (i, row) {
         option = document.createElement("option");
-        $(option).attr("value", row.ID);
+        $(option).attr("value", row.id);
         $(option).html(row.descripcion);
         $(select).append(option);
     });
@@ -306,4 +307,18 @@ function initModalNew(dataUrl) {
         }
     });
     return html;
+}
+function getEstado(value){
+    switch (value) {
+        case "ACT":
+            return "Activo";
+            break;
+        case "ANU":
+            return "Anulado";
+            break;
+            
+        default:
+            
+            break;
+    }
 }

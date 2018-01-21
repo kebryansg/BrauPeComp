@@ -12,13 +12,13 @@
 <section class="content container-fluid">
 
     <ul class="nav nav-tabs">
-        <li ><a data-toggle="tab" href="#menu1">Información</a></li>
-        <li class="active" ><a data-toggle="tab" href="#menu2">Logotipo</a></li>
+        <li class="active" ><a data-toggle="tab" href="#menu1">Información</a></li>
+        <li><a data-toggle="tab" href="#menu2">Logotipo</a></li>
     </ul>
 
     <div class="tab-content">
         
-            <div id="menu1" class="tab-pane fade ">
+            <div id="menu1" class="tab-pane fade in active">
                 <form save action="servidor/sConfigure.php" role="configuracion">
                 <br>
 
@@ -78,7 +78,7 @@
 </form>
             </div>
         
-        <div id="menu2" class="tab-pane fade in active">
+        <div id="menu2" class="tab-pane fade ">
             <br>
             <div class="row">
                 <form id="updateImg" action="" method="post" enctype="multipart/form-data">

@@ -95,7 +95,8 @@
 
             <div class="row">
                 <div toolbar id="toolbarDetalle" class="btn-group">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-new" data-tab="#detalleProforma">
+                    <!--<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-new" data-tab="#detalleProforma">-->
+                    <button addTable type="button" class="btn btn-success">
                         <i class="fa fa-plus"></i> Agregar
                     </button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-find">
@@ -113,11 +114,12 @@
                         <thead>
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
-                                <th data-field="producto" >Producto</th>
-                                <th data-field="cantidad" class="col-md-2" >Cantidad</th>
-                                <th data-field="precioProveedor" class="col-md-2"  >$ Proveedor</th>
-                                <th data-field="precioComision" class="col-md-2" >$ Comisión</th>
-                                <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultAccion" data-events="editAccion" >Accion</th>
+                                <th data-field="producto" data-formatter="defaultDescripcion" data-events="event_imask" >Producto</th>
+                                <th data-field="cantidad" class="col-md-1" data-formatter="imask" data-events="event_imask" >Cantidad</th>
+                                <!--<th data-field="precioProveedor" class="col-md-2"  >$ Proveedor</th>-->
+                                <th data-field="precioProveedor" class="col-md-1" data-formatter="imask" data-events="event_imask">$ Proveedor</th>
+                                <th data-field="precioComision" class="col-md-1" data-formatter="imask" data-events="event_imask" >$ Comisión</th>
+                                <!--<th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultAccion" data-events="editAccion" >Accion</th>-->
                             </tr>
                         </thead>
                     </table>
@@ -143,6 +145,9 @@
                             <label class="control-label">Total</label>
                             <input id="txtTotal" readonly type="text" class="form-control input-sm" style="text-align: right;">
                         </div>
+                    </div>
+                    <div class="pull-left">
+                        <button type="button" id="ActualizarValores" class="btn btn-success"><i class="fa fa-refresh"></i> Refrescar</button>
                     </div>
                 </div>
             </div>

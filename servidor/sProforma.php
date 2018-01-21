@@ -49,7 +49,7 @@ switch ($accion) {
                 foreach ($detalles as $detalle) {
                     $detalleProforma = $mapper->map($detalle, new DetalleProforma());
                     
-                    if($detalleProforma->IdProducto === "0"){
+                    if($detalleProforma->IdProducto === 0){
                         $Producto = new Producto();
                         $Producto->Descripcion = $detalle->producto;
                         ProductoDaoImp::save($Producto);

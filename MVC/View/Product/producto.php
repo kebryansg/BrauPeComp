@@ -26,7 +26,7 @@
                     <th data-field="state" data-checkbox="true"></th>
                     <th data-field="descripcion">Descripción</th>
                     <th data-field="observacion">Observación</th>
-                    <th data-field="estado">Estado</th>
+                    <th data-field="estado" data-formatter="getEstado">Estado</th>
                     <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultBtnAccion" data-events="defaultEvent" >Acción</th>
                 </tr>
             </thead>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label">Estado</label>
-                        <select name="estado" class="form-control" required>
+                        <select name="estado" class="form-control selectpicker" required>
                             <option value="ACT">Activo</option>
                             <option value="ANU">Anulado</option>
                         </select>
