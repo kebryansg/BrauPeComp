@@ -38,17 +38,24 @@ switch ($accion) {
         switch ($op) {
             case "proforma":
                 $Profoma = $mapper->map($json, new Proforma());
+                //$Profoma->Codigo = date_parse($Profoma->Fecha)["year"]. "-";
                 ProformaDaoImp::save($Profoma);
                 $resultado = json_encode(array(
                     "status" => TRUE,
                     "Mensaje" => "Registrado Correctamente"
                 ));
                 
+                
+                $detalles_delete = json_decode($_POST["detalles_delete"], TRUE);
+                DetalleProformaDaoImp::_removeMultiple($detalles_delete);
+                
+                
+                
                 $detalles = json_decode($_POST["detalles"]);
                 
-                foreach ($detalles as $detalle) {
+                foreach ($detalles as $clave =>$detalle) {
                     $detalleProforma = $mapper->map($detalle, new DetalleProforma());
-                    
+                    $detalleProforma->Orden = $clave;
                     if($detalleProforma->IdProducto === 0){
                         $Producto = new Producto();
                         $Producto->Descripcion = $detalle->producto;

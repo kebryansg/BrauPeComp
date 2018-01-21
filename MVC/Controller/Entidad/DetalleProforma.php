@@ -9,6 +9,7 @@ class DetalleProforma extends ModelSQL {
     public $Cantidad;
     public $precioProveedor;
     public $precioComision;
+    public $Orden;
     //public $Logo;
 
     function __construct() {

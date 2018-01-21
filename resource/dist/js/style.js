@@ -14,13 +14,14 @@ Inputmask.extendAliases({
 
 
 var TablePaginationDefault = {
-    height: 400,
+    //height: 400,
     pageSize: 5,
     search: true,
     pageList: [5, 10, 15, 20],
     cache: false,
     pagination: true,
     searchTimeOut: 250,
+    showRefresh: true,
     sidePagination: "server"
 };
 $(function () {
@@ -86,13 +87,13 @@ $(function () {
         $(this).closest(".modal").modal("hide");
     });
 
-    $(document).on("click", "button[name='btn_del_individual']", function (e) {
+    /*$(document).on("click", "button[name='btn_del_individual']", function (e) {
         div_id = $(this).closest("div[toolbar]").attr("id");
 
         //alert(div_id);
         tableSelect = $("table[data-toolbar='#" + div_id + "']");
         deleteIndividual(tableSelect);
-    });
+    });*/
 
     var dropdownMenu;
     $(window).on('show.bs.dropdown', function (e) {
@@ -200,6 +201,7 @@ function hideRegistro() {
     }
     $("div[Listado]").fadeIn("slow");
     $("div[Listado] table").bootstrapTable("refresh");
+    $("div[Listado] table").bootstrapTable("resetView");
     $("div[Listado]").removeClass("hidden");
     $("div[Registro] form").removeData("id");
 }

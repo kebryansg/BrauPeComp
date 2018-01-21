@@ -8,6 +8,7 @@ $(function () {
 
     $('[name="envio"]').html(datos.envio);
     $('[name="garantia"]').html(datos.garantia);
+    $('[name="codigo"]').html(datos.codigo);
 
     /*
      * Cliente
@@ -39,16 +40,6 @@ $(function () {
     subtotal = 0;
     subtotal_unit = 0;
     iva = 0;
-
-    /*$.each(detalles, function (i, row) {
-     detalles_format.push({
-     cantidad: row.cantidad,
-     producto: row.producto,
-     precioUnit: (parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)).toFixed(2),
-     precioTotal: ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad)).toFixed(2)
-     });
-     subtotal += ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
-     });*/
 
 
     $.each(detalles, function (i, row) {
@@ -100,11 +91,13 @@ $(function () {
     var element = $("#proforma")[0];
     $("#btnGenerarIMG").on('click', function () {
         $("a[dw]").removeClass("hidden");
+        
+        //$(element).css("padding","0 20px");
 
         html2canvas(element).then(function (canvas) {
             //var image = canvas.toDataURL("image/png").replace("image/png", "data:application/octet-stream");
             var image = canvas.toDataURL();
-            $("a[dw]").attr("download", 'proforma.png');
+            $("a[dw]").attr("download", 'prof '+ datos.codigo +'.png');
             $("a[dw]").attr("href", image);
         });
     });

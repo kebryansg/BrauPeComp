@@ -35,13 +35,13 @@
 
     </div>
     <div class="col-md-12">
-        <div id="proforma" style="width: 70%; margin: 0 auto;" class="">
+        <div id="proforma" style="width: 70%; margin: 0 auto; padding: 0 30px;" class="">
             <div name="header">
                 <div class="col-md-2" >
                     <img src="../../../resource/ConfigIMG/logo.png" style="float: right;" width="130" alt="">
                 </div>
                 <div class="col-md-9">
-                    <h2 class="text-center bold">BrauPeComp Tecnologies</h2>
+                    <h2 class="text-center bold" style="text-decoration: underline; color: red;" >BrauPeComp Tecnologies</h2>
                     <h4 class="text-center bold">REPARACION Y VENTAS DE COMPUTADORAS</h4>
                     <h5 class="text-center bold">PÉREZ SALDAÑA BRAULIO DOUGLAS</h5>
                     <h5 class="text-center">Venta al por mayor y menor de computadoras, partes y piezas</h5>
@@ -51,7 +51,7 @@
             <div name="encabezado">
                 <table style="width: 100%;">
                     <tbody>
-                        <tr>
+                        <tr >
                             <td class="thCabezera">RUC:</td>
                             <td name="ruc"></td>
                             <td class="thCabezera">CEL:</td>
@@ -73,7 +73,7 @@
                             <td class="thCabezera" >CLIENTE:</td>
                             <td name='cliente'></td>
                             <td class="thCabezera">PROFORMA N°:</td>
-                            <td></td>
+                            <td name='codigo'></td>
                         </tr>
                         <tr>
                             <td class="thCabezera">C.I O RUC:</td>
@@ -101,9 +101,9 @@
                     </thead>
                 </table>
                 <br>-->
-                <table detalle >
-                    <thead>
-                        <tr>
+                <table detalle class="table table-bordered" >
+                    <thead style = "color:white; background-color:graytext;">
+                        <tr >
                             <th data-field="cantidad" class="col-md-1" data-align='center'>Cantidad</th>
                             <th data-field="producto">Producto</th>
                             <th data-field="precioUnit" class="col-md-2" data-align='center'>Precio Unit.</th>

@@ -25,7 +25,7 @@ window.event_find = {
                 precioProveedor: 0,
                 precioComision: 0
             });
-            //calculoTb();
+            $("#detalleProforma").bootstrapTable("scrollTo", "bottom");
         }
         $("#modal-find").modal("hide");
     }
@@ -35,7 +35,6 @@ window.event_find_cliente = {
         $("input[nombres]").val(row.nombres);
         $("input[name='IdCliente']").val(row.id);
         $("#modal-find-cliente").modal("hide");
-
     }
 };
 window.editAccion = {
@@ -45,6 +44,22 @@ window.editAccion = {
 };
 
 $(function () {
+
+    $("button[delete_local]").click(function (e) {
+        div_id = $(this).closest("div[toolbar]").attr("id");
+        tableSelect = $("table[data-toolbar='#" + div_id + "']");
+
+        // Retornar Ids diferentes a 0
+        ids = $(tableSelect).bootstrapTable("getSelections").filter(row => parseInt(row.id) !== 0);
+        id_delete = $.map($(ids), function (row) {
+            return row.id;
+        });
+        $(this).data("ids", id_delete);
+
+
+        state = $(tableSelect).bootstrapTable("getSelections").map(row => row.state);
+        $(tableSelect).bootstrapTable("remove", {field: 'state', values: state});
+    });
 
     $(document).on("focus", "input[myDecimal]", function () {
         $(this).inputmask("myDecimal");
@@ -63,7 +78,6 @@ $(function () {
         }
     });
 
-    //$("button[name='btn_add']").click();
     $("table[init]").bootstrapTable(TablePaginationDefault);
 
     $("table[find]").bootstrapTable($.extend({}, TablePaginationDefault, {
@@ -74,14 +88,8 @@ $(function () {
 
     $("table[detalle]").bootstrapTable({
         cache: false,
-        height: 300
+        height: 450
     });
-
-    /*$(document).on("reset", "form[local]", function (e) {
-        $(this).removeData("index");
-        $(this).removeData("id");
-        $("#modal-new").modal("hide");
-    });*/
 
     $("#modal-find,#modal-find-cliente").on({
         'shown.bs.modal': function (e) {
@@ -89,37 +97,11 @@ $(function () {
         }
     });
 
-    /*$("#modal-new").on({
-     'show.bs.modal': function (e) {
-     //$("#modal-new input[myDecimal]").val(0);
-     },
-     'hidden.bs.modal': function (e) {
-     $("#modal-new form[local]").trigger("reset");
-     //$("#modal-new input[myDecimal]").inputmask('remove');
-     //$("#modal-new input[myDecimal]").inputmask("myDecimal");
-     }
-     });*/
-
-    /*$("form[local]").submit(function (e) {
-     e.preventDefault();
-     tb = $(this).attr("data-tb");
-     datos = JSON.parse($(this).serializeObject());
-     
-     if ($.isNumeric($(this).data("index"))) {
-     $(tb).bootstrapTable("updateRow", {
-     index: $(this).data("index"),
-     row: datos
-     });
-     } else {
-     datos["idProducto"] = "0";
-     $(tb).bootstrapTable("append", datos);
-     //$(tb).bootstrapTable("insertRow",{index: 0,row: datos});
-     }
-     calculoTb();
-     $(this).trigger("reset");
-     });*/
-
-
+    $("#modal-view-detalle").on({
+        'shown.bs.modal': function (e) {
+            $(this).find("table").bootstrapTable("resetView");
+        }
+    });
 
     $("button[addTable]").click(function (e) {
         $("#detalleProforma").bootstrapTable("append", {
@@ -129,6 +111,7 @@ $(function () {
             precioProveedor: 0,
             precioComision: 0
         });
+        $("#detalleProforma").bootstrapTable("scrollTo", "bottom");
     });
 
     $("#ActualizarValores").click(function (e) {
@@ -137,23 +120,21 @@ $(function () {
 
 });
 
-
-
 function getDatos(form) {
     form_datos = JSON.parse($(form).serializeObject());
-
-    fecha = $("input[name='fecha']").val();
-    form_datos["fecha"] = formatSave(fecha);
+    form_datos.fecha = formatSave(form_datos.fecha);
     datos = {
         url: $(form).attr("action"),
         dt: {
             accion: "save",
             op: $(form).attr("role"),
             datos: JSON.stringify(form_datos),
-            detalles: JSON.stringify($("#detalleProforma").bootstrapTable("getData"))
+            detalles: JSON.stringify($("#detalleProforma").bootstrapTable("getData")),
+            detalles_delete: JSON.stringify($("button[delete_local]").data("ids"))
         }
     };
-    //console.log(datos);
+    $("button[delete_local]").removeData("ids");
+    $("#detalleProforma").bootstrapTable("removeAll");
     return datos;
 }
 
@@ -209,17 +190,11 @@ function duplicate(datos) {
 
 function edit(datos) {
     form = "div[Registro] form";
-    //console.log(datos);
-
-    //datos["fecha"] = formatView(datos["fecha"]);
-
     $(form).data("id", datos.id);
     for (var clave in datos) {
         $(form + " [name='" + clave + "']").val(datos[clave]);
     }
     $(form + " [name='fecha']").val(formatView(datos["fecha"]));
-
-
 
     response = getJson({
         url: "servidor/sProforma.php",
@@ -244,11 +219,7 @@ function edit(datos) {
 
     $("input[myDecimal]").inputmask("myDecimal");
 
-
-
-
     calculoTb();
-
 }
 
 function BtnAccion(value, rowData, index) {
@@ -281,6 +252,7 @@ function viewDetalle(datos) {
 function imask(value, rowData, index) {
     return '<input myDecimal field="' + this.field + '" type="text" class="form-control input-sm" value="' + parseFloat(value).toFixed(2) + '">';
 }
+
 function defaultDescripcion(value, rowData, index) {
     if (rowData.idProducto === 0) {
         return '<input descripcion class="form-control input-sm" type="text" value="' + value + '">';

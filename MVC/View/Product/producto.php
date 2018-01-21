@@ -16,6 +16,7 @@
             </button>
         </div>
         <table
+            class="table table-striped table-bordered table-hover"
             init
             data-toolbar="#toolbar"
             data-ajax="loadProducto"

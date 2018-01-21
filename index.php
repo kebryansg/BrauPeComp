@@ -22,6 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="resource/bootstrap/bootstrap-select/bootstrap-select.min.css">
         <!-- Bootstrap Table -->
         <link rel="stylesheet" href="resource/table/bootstrap-table.min.css">
+        <link rel="stylesheet" href="resource/table/bootstrap-table-reorder-rows.css">
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="resource/Plantilla/font-awesome/css/font-awesome.min.css">
@@ -56,6 +57,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- BootStrapTable -->
         <script src="resource/table/bootstrap-table.min.js"></script>
         <script src="resource/table/locale/bootstrap-table-es-ES.min.js"></script>
+        <script src="resource/table/jquery.tablednd.js"></script>
+        <script src="resource/table/bootstrap-table-reorder-rows.js"></script>
         
         <!-- BootStrap Select -->
         <script src="resource/bootstrap/bootstrap-select/bootstrap-select.min.js"></script>

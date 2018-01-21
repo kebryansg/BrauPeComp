@@ -29,5 +29,12 @@ class DetalleProformaDaoImp {
         $conn->close();
         return $list;
     }
+    
+    public static function _removeMultiple($ids) {
+        $conn = (new C_MySQL())->open();
+        $sql = "DELETE FROM detalleproforma where id in(" . join(',', $ids) . ");";
+        $conn->query($sql);
+        $conn->close();
+    }
 
 }

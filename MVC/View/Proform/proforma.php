@@ -16,6 +16,7 @@
             </button>
         </div>
         <table
+            class="table table-striped table-bordered table-hover "
             init
             data-toolbar="#toolbar"
             data-ajax="loadProforma"
@@ -24,26 +25,26 @@
             <thead>
                 <tr>
                     <th data-field="state" data-checkbox="true" ></th>
-                    <th data-field="id" class="col-md-1">N° Proforma</th>
+                    <th data-field="codigo" class="col-md-1">N° Proforma</th>
                     <th data-field="fecha" class="col-md-2" data-formatter="defaultFecha">Fecha</th>
                     <th data-field="ganancia" class="col-md-1">Ganancia</th>
                     <th data-field="nombres">Cliente</th>
-                    <th data-field="garantia">Garantia</th>
-                    
-                    <!--<th data-field="observacion">Observacion</th>-->
+                    <!--<th data-field="garantia">Garantia</th>-->
+
+<!--<th data-field="observacion">Observacion</th>-->
                     <th data-field="accion" class="col-md-1" data-align="center" data-formatter="BtnAccion" data-events="defaultEvent" >Acción</th>
                 </tr>
             </thead>
         </table>
     </div>
-    
+
     <div Registro class="hidden">
         <form save action="servidor/sProforma.php" role="proforma">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="" class="control-label">N° Proforma</label>
-                        <input name="id" type="text" class="form-control" readonly value="0">
+                        <input name="codigo" type="text" class="form-control" readonly value="0">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -102,7 +103,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-find">
                         <i class="fa fa-search"></i> Producto
                     </button>
-                    <button type="button" name="btn_del_individual" class="btn btn-danger">
+                    <button type="button" delete_local class="btn btn-danger">
                         <i class="fa fa-trash"></i> Eliminar
                     </button>
                 </div>
@@ -110,6 +111,9 @@
                     <table 
                         id="detalleProforma"
                         data-toolbar="#toolbarDetalle"
+                        data-use-row-attr-func="true"
+                        data-reorderable-rows="true"
+
                         detalle>
                         <thead>
                             <tr>
@@ -292,6 +296,8 @@
             </div>
         </div>
     </div>
+
+
     <div id="modal-view-detalle" class="modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

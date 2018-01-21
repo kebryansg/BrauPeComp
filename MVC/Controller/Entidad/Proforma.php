@@ -14,7 +14,7 @@ class Proforma extends ModelSQL {
 
     function __construct() {
         $this->Id = 0;
-        $this->Codigo = "prof-";
+        //$this->Codigo = "prof-";
         $this->tabla = "proforma";
     }
 }
