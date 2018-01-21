@@ -40,24 +40,38 @@ $(function () {
     subtotal = 0;
     subtotal_unit = 0;
     iva = 0;
+    console.log(detalles);
+    if (datos.detalleCompleto) {
+        $("table[detalle]").bootstrapTable();
+        detalles_format = $.map(detalles,function(row){
+            subtotal += ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
+            precioUnit = parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12);
+            precioTotal = ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
+            return {
+                cantidad: row.cantidad,
+                producto: row.producto,
+                precioUnit: precioUnit.toFixed(2),
+                precioTotal: precioTotal.toFixed(2)
+            };
+        });
+        
+        $("table[detalle]").bootstrapTable("load", detalles_format);
+        
+    } else {
+        $.each(detalles, function (i, row) {
+            tr = document.createElement("tr");
 
+            $(tr).html("<td>" + row.cantidad + "</td> <td>" + row.producto + "</td>");
+            subtotal_unit += parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12);
+            subtotal += ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
+            $("table[detalle] tbody").append(tr);
+        });
+        subtotal_unit += parseFloat(datos.ganancia) / 1.12;
+        subtotal += parseFloat(datos.ganancia) / 1.12;
 
-    $.each(detalles, function (i, row) {
-        tr = document.createElement("tr");
-
-        $(tr).html("<td>" + row.cantidad + "</td> <td>" + row.producto + "</td>");
-        subtotal_unit += parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12);
-        subtotal += ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
-        $("table[detalle] tbody").append(tr);
-    });
-
-    subtotal_unit += parseFloat(datos.ganancia) / 1.12;
-    subtotal += parseFloat(datos.ganancia) / 1.12;
-
-    $("table[detalle] tbody tr:first").append("<td rowspan='" + detalles.length + "'>" + subtotal_unit.toFixed(2) + "</td> <td rowspan='" + detalles.length + "'> " + subtotal.toFixed(2) + "</td> ");
-    $("table[detalle]").bootstrapTable();
-
-
+        $("table[detalle] tbody tr:first").append("<td rowspan='" + detalles.length + "'>" + subtotal_unit.toFixed(2) + "</td> <td rowspan='" + detalles.length + "'> " + subtotal.toFixed(2) + "</td> ");
+        $("table[detalle]").bootstrapTable();
+    }
 
     iva = (subtotal * 0.12);
 
@@ -65,8 +79,7 @@ $(function () {
     $("input[name='iva']").val(iva.toFixed(2));
     $("input[name='total']").val((subtotal + iva).toFixed(2));
 
-    $("#detalle").bootstrapTable();
-    $("#detalle").bootstrapTable("load", detalles_format);
+
     /*
      * Config
      */
@@ -91,13 +104,13 @@ $(function () {
     var element = $("#proforma")[0];
     $("#btnGenerarIMG").on('click', function () {
         $("a[dw]").removeClass("hidden");
-        
+
         //$(element).css("padding","0 20px");
 
         html2canvas(element).then(function (canvas) {
             //var image = canvas.toDataURL("image/png").replace("image/png", "data:application/octet-stream");
             var image = canvas.toDataURL();
-            $("a[dw]").attr("download", 'prof '+ datos.codigo +'.png');
+            $("a[dw]").attr("download", 'prof ' + datos.codigo + '.png');
             $("a[dw]").attr("href", image);
         });
     });

@@ -184,7 +184,18 @@ function duplicate(datos) {
             idProforma: datos.id
         }
     });
-    $("#detalleProforma").bootstrapTable("load", response);
+    response_format = $.map(response,function(row){
+        return {
+            //id: 0,
+            cantidad: row.cantidad,
+            producto: row.producto,
+            precioProveedor: row.precioProveedor,
+            precioComision: row.precioComision,
+            IdProducto: row.idproducto
+        };
+    });
+    
+    $("#detalleProforma").bootstrapTable("load", response_format);
     calculoTb();
 }
 
@@ -232,6 +243,7 @@ function BtnAccion(value, rowData, index) {
             ' <li name="view" ><a href="#"> <i class="fa fa-tasks"></i> Vista Previa</a></li>' +
             ' <li name="duplicate" ><a href="#"> <i class="fa fa-copy"></i> Duplicar</a></li>' +
             ' <li name="download" ><a href="#"> <i class="fa fa-download"></i> Export</a></li>' +
+            ' <li name="download-completo" ><a href="#"> <i class="fa fa-download"></i> Export(Detalle Completo)</a></li>' +
             '</ul>' +
             '</div>';
 }

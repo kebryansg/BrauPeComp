@@ -229,6 +229,11 @@ window.defaultEvent = {
         viewDetalle(row);
     },
     'click li[name="download"]': function (e, value, row, index) {
+        row["detalleCompleto"] = false;
+        openWindowWithPost("MVC/View/Proform/fileProforma.php", row);
+    },
+    'click li[name="download-completo"]': function (e, value, row, index) {
+        row["detalleCompleto"] = true;
         openWindowWithPost("MVC/View/Proform/fileProforma.php", row);
     },
     'click li[name="duplicate"]': function (e, value, row, index) {
