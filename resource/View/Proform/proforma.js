@@ -67,6 +67,10 @@ $(function () {
         
     });
 
+    $(document).on("click", "input[myDecimal]", function () {
+        $(this).focus();
+    });
+    
     $(document).on("focus", "input[myDecimal]", function () {
         $(this).inputmask("myDecimal");
     });
