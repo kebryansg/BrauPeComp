@@ -41,7 +41,7 @@
                     <img src="../../../resource/ConfigIMG/logo.png" style="float: right;" width="130" alt="">
                 </div>
                 <div class="col-md-9">
-                    <h2 class="text-center bold" style="text-decoration: underline; color: red;" >BrauPeComp Tecnologies</h2>
+                    <h2 class="text-center bold" style="color: red;" name="insitucacion" >BrauPeComp Tecnologies</h2>
                     <h4 class="text-center bold">REPARACION Y VENTAS DE COMPUTADORAS</h4>
                     <h5 class="text-center bold">PÉREZ SALDAÑA BRAULIO DOUGLAS</h5>
                     <h5 class="text-center">Venta al por mayor y menor de computadoras, partes y piezas</h5>

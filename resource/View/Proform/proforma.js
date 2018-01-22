@@ -26,6 +26,8 @@ window.event_find = {
                 precioComision: 0
             });
             $("#detalleProforma").bootstrapTable("scrollTo", "bottom");
+            total = $("#detalleProforma").bootstrapTable("getData").length;
+            $("#contadorRegistro").html("Registros: " + total);
         }
         $("#modal-find").modal("hide");
     }
@@ -59,6 +61,10 @@ $(function () {
 
         state = $(tableSelect).bootstrapTable("getSelections").map(row => row.state);
         $(tableSelect).bootstrapTable("remove", {field: 'state', values: state});
+        
+        total = $("#detalleProforma").bootstrapTable("getData").length;
+        $("#contadorRegistro").html("Registros: " + total);
+        
     });
 
     $(document).on("focus", "input[myDecimal]", function () {
@@ -112,6 +118,10 @@ $(function () {
             precioComision: 0
         });
         $("#detalleProforma").bootstrapTable("scrollTo", "bottom");
+
+        total = $("#detalleProforma").bootstrapTable("getData").length;
+        $("#contadorRegistro").html("Registros: " + total);
+
     });
 
     $("#ActualizarValores").click(function (e) {
@@ -184,7 +194,7 @@ function duplicate(datos) {
             idProforma: datos.id
         }
     });
-    response_format = $.map(response,function(row){
+    response_format = $.map(response, function (row) {
         return {
             //id: 0,
             cantidad: row.cantidad,
@@ -194,8 +204,9 @@ function duplicate(datos) {
             IdProducto: row.idproducto
         };
     });
-    
     $("#detalleProforma").bootstrapTable("load", response_format);
+    $("#contadorRegistro").html("Registros: " + response_format.length);
+    
     calculoTb();
 }
 
@@ -207,7 +218,7 @@ function edit(datos) {
     }
     $(form + " [name='fecha']").val(formatView(datos["fecha"]));
 
-    response = getJson({
+    response_tb = getJson({
         url: "servidor/sProforma.php",
         data: {
             accion: "list",
@@ -215,7 +226,13 @@ function edit(datos) {
             idProforma: datos.id
         }
     });
-    $("#detalleProforma").bootstrapTable("load", response);
+
+
+    setTimeout(function () {
+        $("#detalleProforma").bootstrapTable("load", response_tb);
+        $("#contadorRegistro").html("Registros: " + response_tb.length);
+        calculoTb();
+    }, 300);
 
     response = getJson({
         url: "servidor/sCliente.php",
@@ -230,7 +247,7 @@ function edit(datos) {
 
     $("input[myDecimal]").inputmask("myDecimal");
 
-    calculoTb();
+    
 }
 
 function BtnAccion(value, rowData, index) {

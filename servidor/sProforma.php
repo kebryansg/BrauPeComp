@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__."/../init.php";
+
+require_once __DIR__ . "/../init.php";
 
 include_once SITE_ROOT . '/MVC/Model/ProformaDaoImp.php';
 include_once SITE_ROOT . '/MVC/Model/ProductoDaoImp.php';
@@ -25,7 +26,7 @@ switch ($accion) {
                     "total" => $count
                 ));
                 break;
-            case "DetallePorforma": 
+            case "DetallePorforma":
                 $resultado = json_encode(DetalleProformaDaoImp::_list($_POST["idProforma"]));
                 break;
         }
@@ -44,19 +45,20 @@ switch ($accion) {
                     "status" => TRUE,
                     "Mensaje" => "Registrado Correctamente"
                 ));
-                
-                
-                $detalles_delete = json_decode($_POST["detalles_delete"], TRUE);
-                DetalleProformaDaoImp::_removeMultiple($detalles_delete);
-                
-                
-                
+
+
+                if (isset($_POST["detalles_delete"])) {
+                    $detalles_delete = json_decode($_POST["detalles_delete"], TRUE);
+                    DetalleProformaDaoImp::_removeMultiple($detalles_delete);
+                }
+
+
                 $detalles = json_decode($_POST["detalles"]);
-                
-                foreach ($detalles as $clave =>$detalle) {
+
+                foreach ($detalles as $clave => $detalle) {
                     $detalleProforma = $mapper->map($detalle, new DetalleProforma());
                     $detalleProforma->Orden = $clave;
-                    if($detalleProforma->IdProducto === 0){
+                    if ($detalleProforma->IdProducto === 0) {
                         $Producto = new Producto();
                         $Producto->Descripcion = $detalle->producto;
                         ProductoDaoImp::save($Producto);

@@ -152,6 +152,7 @@
                     </div>
                     <div class="pull-left">
                         <button type="button" id="ActualizarValores" class="btn btn-success"><i class="fa fa-refresh"></i> Refrescar</button>
+                        <label id="contadorRegistro" class="control-label">Registros: 0</label>
                     </div>
                 </div>
             </div>

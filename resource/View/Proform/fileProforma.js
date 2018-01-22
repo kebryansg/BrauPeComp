@@ -40,13 +40,15 @@ $(function () {
     subtotal = 0;
     subtotal_unit = 0;
     iva = 0;
-    console.log(detalles);
+    
     if (datos.detalleCompleto) {
         $("table[detalle]").bootstrapTable();
         detalles_format = $.map(detalles,function(row){
-            subtotal += ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
-            precioUnit = parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12);
-            precioTotal = ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
+            
+            comision_aux = parseFloat(row.precioComision) / parseFloat(row.cantidad);
+            precioUnit = parseFloat(row.precioProveedor) + (comision_aux / 1.12);
+            precioTotal = precioUnit * row.cantidad;
+            subtotal += precioTotal;
             return {
                 cantidad: row.cantidad,
                 producto: row.producto,
@@ -55,15 +57,21 @@ $(function () {
             };
         });
         
+        
         $("table[detalle]").bootstrapTable("load", detalles_format);
         
     } else {
         $.each(detalles, function (i, row) {
             tr = document.createElement("tr");
-
             $(tr).html("<td>" + row.cantidad + "</td> <td>" + row.producto + "</td>");
-            subtotal_unit += parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12);
-            subtotal += ((parseFloat(row.precioProveedor) + (parseFloat(row.precioComision) / 1.12)) * parseFloat(row.cantidad));
+            
+            comision_aux = parseFloat(row.precioComision) / parseFloat(row.cantidad);
+            precioUnit = parseFloat(row.precioProveedor) + (comision_aux / 1.12);
+            precioTotal = precioUnit * row.cantidad;
+            
+            
+            subtotal_unit += precioUnit; 
+            subtotal += precioTotal;
             $("table[detalle] tbody").append(tr);
         });
         subtotal_unit += parseFloat(datos.ganancia) / 1.12;
@@ -92,6 +100,8 @@ $(function () {
     })[0];
 
 
+
+    $('[name="insitucacion"]').html(config.nombre);
     $("td[name='ruc']").html(config.ruc);
     $("td[name='celular']").html(config.celular);
     $("td[name='direccion']").html(config.direccion);
