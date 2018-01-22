@@ -3,6 +3,9 @@
     text-align: center;
     font-weight: bold;
 }
+.thDatos{
+    padding-left: 10px;
+}
 
 div[name="header"] {
     margin: 0 auto ;

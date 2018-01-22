@@ -35,7 +35,7 @@
 
     </div>
     <div class="col-md-12">
-        <div id="proforma" style="width: 70%; margin: 0 auto; padding: 0 30px;" class="">
+        <div id="proforma" style="width: 70%; margin: 0 auto; padding: 0 30px;">
             <div name="header">
                 <div class="col-md-2" >
                     <img src="../../../resource/ConfigIMG/logo.png" style="float: right;" width="130" alt="">
@@ -71,21 +71,21 @@
                     <tbody>
                         <tr>
                             <td class="thCabezera" >CLIENTE:</td>
-                            <td name='cliente'></td>
+                            <td name='cliente' class="thDatos"></td>
                             <td class="thCabezera">PROFORMA N°:</td>
-                            <td name='codigo'></td>
+                            <td name='codigo' class="thDatos"></td>
                         </tr>
                         <tr>
                             <td class="thCabezera">C.I O RUC:</td>
-                            <td name='cliente_ruc'></td>
+                            <td name='cliente_ruc' class="thDatos"></td>
                             <td class="thCabezera" >FECHA</td>
-                            <td name='fecha'></td>
+                            <td name='fecha' class="thDatos"></td>
                         </tr>
                         <tr>
                             <td class="thCabezera">TELÉFONO:</td>
-                            <td name='cliente_telefono'></td>
+                            <td name='cliente_telefono' class="thDatos"></td>
                             <td class="thCabezera">VALIDEZ</td>
-                            <td> 7 dias o Ago/Stock</td>
+                            <td class="thDatos"> 7 dias o Ago/Stock</td>
                         </tr>
                     </tbody>
                 </table>
@@ -127,7 +127,7 @@
                             <dt>Nota:</dt>
                             <dd class="text-justify">
                                 El precio puede varias dependiendo las partes que el cliente quiera cambiar.
-                                Confirmar la compra a mi telefono 099, para el pago, puede depositar a mi cuenta de ahorros Banco Pichincha a nombre de Braulio Pérez Saldaña #2201316607
+                                Confirmar la compra a mi telefono 0997890738, para el pago, puede depositar a mi cuenta de ahorros Banco Pichincha a nombre de Braulio Pérez Saldaña #2201316607
                             </dd>
                             <br>
                             <dt>Depositar $<strong name="envio">0.00</strong> adicional del envío por servientrega.</dt>
@@ -153,7 +153,7 @@
                     </div>
                 </div>
             </div>
-            <div name="footer" style="text-align: center;">
+            <div name="footer" style="text-align: center;padding-bottom: 20px;">
                 <h5 class="text-center bold">Atentamente</h5>
                 <h5 class="text-center">Ing. Braulio Pérez Saldaña</h5>
                 <h5 class="text-center">Reparación, ventas y soluciones técnicas.</h5>

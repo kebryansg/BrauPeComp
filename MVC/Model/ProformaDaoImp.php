@@ -21,7 +21,7 @@ class ProformaDaoImp {
         $conn = (new C_MySQL())->open();
         $banderapag = ($params["top"] > 0 ) ? "limit " . $params['top'] . " offset " . $params['pag'] : "";
         //where estado = 'ACT'
-        $sql = "select SQL_CALC_FOUND_ROWS * from viewProforma order by fecha desc $banderapag ;";
+        $sql = "select SQL_CALC_FOUND_ROWS * from viewProforma order by id desc $banderapag ;";
 
         $list = C_MySQL::returnListAsoc($conn, $sql);
         $count = C_MySQL::row_count($conn);

@@ -26,9 +26,8 @@ final class C_MySQL {
         return $list;
     }
     public function open() {
-        //$this->mysqli = new mysqli("localhost", "root", "12345", "cevroos_antaresv2");
-        $this->mysqli = new mysqli("localhost", "kbsg", "kbsg", "braupecomp");
-        //$this->mysqli = new mysqli("localhost", "root", "", "braupecomp");
+        //$this->mysqli = new mysqli("localhost", "kbsg", "kbsg", "braupecomp");
+        $this->mysqli = new mysqli("localhost", "root", "", "braupecomp");
         if ($this->mysqli->connect_errno) {
             echo "Fallo al conectar a MySQL: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error;
         }
