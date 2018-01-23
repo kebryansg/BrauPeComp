@@ -27,6 +27,7 @@ window.event_find = {
             });
             $("#detalleProforma").bootstrapTable("scrollTo", "bottom");
             total = $("#detalleProforma").bootstrapTable("getData").length;
+            total = total === 0 ? total : total - 1;
             $("#contadorRegistro").html("Registros: " + total);
         }
         $("#modal-find").modal("hide");
@@ -56,24 +57,32 @@ $(function () {
         id_delete = $.map($(ids), function (row) {
             return row.id;
         });
-        $(this).data("ids", id_delete);
 
+
+        if ($.isEmptyObject($(this).data("ids"))) {
+            $(this).data("ids", id_delete);
+        } else {
+            _new = $.merge($(this).data("ids"), id_delete);
+            console.log(_new);
+        }
 
         state = $(tableSelect).bootstrapTable("getSelections").map(row => row.state);
         $(tableSelect).bootstrapTable("remove", {field: 'state', values: state});
-        
+
         total = $("#detalleProforma").bootstrapTable("getData").length;
+        total = total === 0 ? total : total - 1;
         $("#contadorRegistro").html("Registros: " + total);
-        
+
     });
 
-    $(document).on("click", "input[myDecimal]", function () {
-        $(this).focus();
-    });
-    
-    $(document).on("focus", "input[myDecimal]", function () {
-        $(this).inputmask("myDecimal");
-    });
+    /*$(document).on("click", "input[myDecimal]", function () {
+     //$(this).focus();
+     $(this).select();
+     });
+     
+     $(document).on("focus", "input[myDecimal]", function () {
+     $(this).inputmask("myDecimal");
+     });*/
 
     $('#modal-new2').on({
         'show.bs.modal': function (e) {
@@ -86,6 +95,11 @@ $(function () {
         'hidden.bs.modal': function (e) {
             // Para que el refesh sea automatico
         }
+    });
+
+    $("#detalleProforma").on('reorder-row.bs.table', function (e, data) {
+        console.log(data);
+        //$("#detalleProforma").bootstrapTable("refresh");
     });
 
     $("table[init]").bootstrapTable(TablePaginationDefault);
@@ -124,6 +138,7 @@ $(function () {
         $("#detalleProforma").bootstrapTable("scrollTo", "bottom");
 
         total = $("#detalleProforma").bootstrapTable("getData").length;
+        total = total === 0 ? total : total - 1;
         $("#contadorRegistro").html("Registros: " + total);
 
     });
@@ -209,8 +224,9 @@ function duplicate(datos) {
         };
     });
     $("#detalleProforma").bootstrapTable("load", response_format);
-    $("#contadorRegistro").html("Registros: " + response_format.length);
-    
+    total = (response_format.length === 0) ? response_format.length : response_format.length - 1;
+    $("#contadorRegistro").html("Registros: " + total);
+
     calculoTb();
 }
 
@@ -234,7 +250,8 @@ function edit(datos) {
 
     setTimeout(function () {
         $("#detalleProforma").bootstrapTable("load", response_tb);
-        $("#contadorRegistro").html("Registros: " + response_tb.length);
+        total = (response_tb.length === 0) ? response_tb.length : response_tb.length - 1;
+        $("#contadorRegistro").html("Registros: " + total);
         calculoTb();
     }, 300);
 
@@ -251,7 +268,7 @@ function edit(datos) {
 
     $("input[myDecimal]").inputmask("myDecimal");
 
-    
+
 }
 
 function BtnAccion(value, rowData, index) {
@@ -296,22 +313,33 @@ function defaultDescripcion(value, rowData, index) {
 
 window.event_imask = {
     'change input[descripcion]': function (e, value, row, index) {
-        row.producto = $(e.target).val();
         table = $(this).closest("table");
+        tr_index = $(this).closest("tr").attr("data-index");
+        row_data = $(table).bootstrapTable("getData")[tr_index];
+        row_data.producto = $(e.target).val();
+
         $(table).bootstrapTable('updateRow', {
-            index: index,
-            row: row
+            index: tr_index,
+            row: row_data
         });
     },
     'change input[myDecimal]': function (e, value, row, index) {
-        cantidad = parseFloat($(e.target).val());
-        val = value;
-        console.log(value);
-        row[$(e.target).attr("field")] = cantidad;
         table = $(this).closest("table");
+        valor = parseFloat($(e.target).val());
+        tr_index = $(this).closest("tr").attr("data-index");
+        row_data = $(table).bootstrapTable("getData")[tr_index];
+        row_data[$(e.target).attr("field")] = valor;
+
         $(table).bootstrapTable('updateRow', {
-            index: index,
-            row: row
+            index: tr_index,
+            row: row_data
         });
+    },
+    'focus input[myDecimal]': function (e, value, row, index) {
+        $(this).inputmask("myDecimal");
+        $(this).select();
     }
 };
+function rowCount(value, row, index) {
+    return (index === 0) ? "" : index;
+}

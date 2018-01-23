@@ -1,3 +1,6 @@
+function styleProducto(value, row, index){
+    return (index === 0)? '<span style="font-weight: bold;">' + value + '</span>' : value;
+}
 $(function () {
 
     /*

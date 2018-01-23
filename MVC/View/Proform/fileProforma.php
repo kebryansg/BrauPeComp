@@ -105,7 +105,7 @@
                     <thead style = "color:white; background-color:graytext;">
                         <tr >
                             <th data-field="cantidad" class="col-md-1" data-align='center'>Cantidad</th>
-                            <th data-field="producto">Producto</th>
+                            <th data-field="producto" data-formatter="styleProducto">Producto</th>
                             <th data-field="precioUnit" class="col-md-2" data-align='center'>Precio Unit.</th>
                             <th data-field="precioTotal" class="col-md-2" data-align='center'>Precio Total</th>
                         </tr>

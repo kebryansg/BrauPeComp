@@ -118,6 +118,7 @@
                         <thead>
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
+                                <th data-formatter="rowCount">N°</th>
                                 <th data-field="producto" data-formatter="defaultDescripcion" data-events="event_imask" >Producto</th>
                                 <th data-field="cantidad" class="col-md-1" data-formatter="imask" data-events="event_imask" >Cantidad</th>
                                 <!--<th data-field="precioProveedor" class="col-md-2"  >$ Proveedor</th>-->
