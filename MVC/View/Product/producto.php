@@ -39,7 +39,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="" class="control-label">Descripción</label>
-                        <input name="descripcion" type="text" class="form-control" maxlength="13" required>
+                        <input name="descripcion" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label">Estado</label>

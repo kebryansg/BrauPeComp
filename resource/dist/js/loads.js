@@ -1,10 +1,37 @@
+/* Aplicar el TRUE check rows  */
+function responseHandlerSelect(res) {
+    $.each(res.rows, function (i, row) {
+        row.state = $.inArray(row.id, selections) !== -1;
+    });
+    return res;
+}
+
+function getURL(url) {
+    switch (url) {
+        case "_cliente":
+            return "servidor/sCliente.php";
+            break;
+        case "_producto":
+            return "servidor/sProducto.php";
+            break;
+        case "_proforma":
+            return "servidor/sProforma.php";
+            break;
+        case "_catalogo":
+            return "servidor/sCatalog.php";
+            break;
+    }
+}
+
+
+
 function loadCliente(params) {
     json_data = {
         data: $.extend({}, {
             op: "cliente",
             accion: "list"
         }, params.data),
-        url: "servidor/sCliente.php"
+        url: getURL("_cliente")
     };
     params.success(getJson(json_data));
 }
@@ -15,7 +42,7 @@ function loadProducto(params) {
             op: "producto",
             accion: "list"
         }, params.data),
-        url: "servidor/sProducto.php"
+        url: getURL("_producto")
     };
     params.success(getJson(json_data));
 }
@@ -26,7 +53,7 @@ function loadProforma(params) {
             op: "proforma",
             accion: "list"
         }, params.data),
-        url: "servidor/sProforma.php"
+        url: getURL("_proforma")
     };
     params.success(getJson(json_data));
 }
@@ -39,7 +66,7 @@ function loadGarantia(params = null) {
     if (params !== null) {
         json_data = {
             data: $.extend({}, data, params.data),
-            url: "servidor/sCatalog.php"
+            url: getURL("_catalogo")
         };
         params.success(getJson(json_data));
     } else {

@@ -18,6 +18,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="resource/Plantilla/bootstrap/dist/css/bootstrap.min.css">
+        <!-- Message -->
+        <link href="resource/bootstrap/message/jquery-confirm.min.css" rel="stylesheet" type="text/css"/>
+
         <!-- Bootstrap Select -->
         <link rel="stylesheet" href="resource/bootstrap/bootstrap-select/bootstrap-select.min.css">
         <!-- Bootstrap Table -->
@@ -54,12 +57,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="resource/Plantilla/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="resource/Plantilla/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Message -->
+        <script src="resource/bootstrap/message/jquery-confirm.min.js"></script>
         <!-- BootStrapTable -->
         <script src="resource/table/bootstrap-table.min.js"></script>
         <script src="resource/table/locale/bootstrap-table-es-ES.min.js"></script>
         <script src="resource/table/jquery.tablednd.js"></script>
         <script src="resource/table/bootstrap-table-reorder-rows.js"></script>
-        
+
         <!-- BootStrap Select -->
         <script src="resource/bootstrap/bootstrap-select/bootstrap-select.min.js"></script>
         <!-- AdminLTE App -->

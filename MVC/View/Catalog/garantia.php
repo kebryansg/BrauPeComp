@@ -20,7 +20,7 @@
             init
             data-toolbar="#toolbar"
             data-ajax="loadGarantia"
-            data-response-handler="responseHandler"
+            data-response-handler="responseHandlerSelect"
             >
             <thead>
                 <tr>

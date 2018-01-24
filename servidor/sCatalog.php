@@ -42,6 +42,18 @@ switch ($accion) {
                 break;
         }
         break;
+    case "delete":
+        switch ($op) {
+            case "garantia":
+                $Garantia = $mapper->map($json, new Garantia());
+                GarantiaDaoImp::save($Garantia);
+                $resultado = json_encode(array(
+                    "status" => TRUE,
+                    "Mensaje" => "Registrado Correctamente"
+                ));
+                break;
+        }
+        break;
 }
 echo $resultado;
 

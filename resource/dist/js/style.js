@@ -24,7 +24,110 @@ var TablePaginationDefault = {
     showRefresh: true,
     sidePagination: "server"
 };
+
+/*function alertEliminarRegistro(row) {
+ $.confirm({
+ theme: "modern",
+ title: 'Eliminar Registro?',
+ escapeKey: "cancelAction",
+ content: 'Estás seguro de continuar?',
+ autoClose: 'cancelAction|8000',
+ buttons: {
+ deleteUser: {
+ text: 'Eliminar Registro',
+ keys: ['enter'],
+ action: function () {
+ delet(row);
+ }
+ },
+ cancelAction: {
+ text: "Cancelar",
+ action: function () {
+ //$.alert('action is canceled');
+ }
+ }
+ }
+ });
+ }*/
+function alertEliminarRegistros(row = selections) {
+    //!$.isArray(rows) ? [rows] : rows
+    bandera = $.isArray(row);
+    $.confirm({
+        theme: "modern",
+        escapeKey: "cancelAction",
+        title: bandera ? 'Eliminar Registros?' : 'Eliminar Registro?',
+        content: 'Estás seguro de continuar?',
+        autoClose: 'cancelAction|8000',
+        buttons: {
+            deleteUser: {
+                text: bandera ? 'Eliminar Registros' : 'Eliminar Registro',
+                keys: ['enter'],
+                action: function () {
+                    deletes();
+                    //$("div[Listado] table").bootstrapTable("refresh");
+                }
+            },
+            cancelAction: {
+                text: "Cancelar",
+                action: function () {
+                    //$.alert('action is canceled');
+                }
+            }
+        }
+    });
+}
+
+function deletes() {
+    $.ajax({
+        url: url_Local,
+        type: "POST",
+        async: false,
+        data: {
+            accion: "delete",
+            op: op,
+            ids: selections
+        }
+    });
+    selections = [];
+    $("div[Listado] table").bootstrapTable("refresh");
+}
+
 $(function () {
+
+
+    /* Boton Eliminar */
+
+    $(document).on("click", "button[name='btn_del']", function (e) {
+        console.log(selections);
+        if (selections.length > 0) {
+            alertEliminarRegistros();
+        }
+    });
+
+    /* Seleccionar diferentes registros*/
+    $(document).on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function (e, rows) {
+        var ids = $.map(!$.isArray(rows) ? [rows] : rows, row => row.id);
+        if ($.inArray(e.type, ['check', 'check-all']) > -1) {
+            //Add
+            $.each(ids, function (i, id) {
+                if ($.inArray(id, selections) === -1)
+                    selections.push(id);
+            });
+
+        } else {
+            //Delete
+            $.each(ids, function (i, id) {
+                if ($.inArray(id, selections) > -1) {
+                    selections.splice($.inArray(id, selections), 1);
+                }
+            });
+        }
+        console.log(selections);
+    });
+
+
+
+
     /* Menú */
 
     $(".sidebar a").click(function (e) {
@@ -88,12 +191,12 @@ $(function () {
     });
 
     /*$(document).on("click", "button[name='btn_del_individual']", function (e) {
-        div_id = $(this).closest("div[toolbar]").attr("id");
-
-        //alert(div_id);
-        tableSelect = $("table[data-toolbar='#" + div_id + "']");
-        deleteIndividual(tableSelect);
-    });*/
+     div_id = $(this).closest("div[toolbar]").attr("id");
+     
+     //alert(div_id);
+     tableSelect = $("table[data-toolbar='#" + div_id + "']");
+     deleteIndividual(tableSelect);
+     });*/
 
     var dropdownMenu;
     $(window).on('show.bs.dropdown', function (e) {
@@ -176,12 +279,12 @@ function getJson(params) {
     return result;
 }
 
-function responseHandler(res) {
-    $.each(res.rows, function (i, row) {
-        row.state = $.inArray(row.ID, selections) !== -1;
-    });
-    return res;
-}
+/*function responseHandler(res) {
+ $.each(res.rows, function (i, row) {
+ row.state = $.inArray(row.ID, selections) !== -1;
+ });
+ return res;
+ }*/
 
 function showRegistro() {
     $("div[Listado]").fadeOut();
@@ -315,7 +418,7 @@ function initModalNew(dataUrl) {
     });
     return html;
 }
-function getEstado(value){
+function getEstado(value) {
     switch (value) {
         case "ACT":
             return "Activo";
@@ -323,9 +426,9 @@ function getEstado(value){
         case "ANU":
             return "Anulado";
             break;
-            
+
         default:
-            
+
             break;
     }
 }

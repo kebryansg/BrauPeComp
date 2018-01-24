@@ -30,4 +30,10 @@ class GarantiaDaoImp {
         $conn->close();
         return $list;
     }
+    public function delete($garantia) {
+        $conn = (new C_MySQL())->open();
+        $sql = $garantia->Update_Delete();
+        $conn->query($sql);
+        $conn->close();
+    }
 }
