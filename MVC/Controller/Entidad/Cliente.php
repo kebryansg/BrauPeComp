@@ -11,11 +11,12 @@ class Cliente extends ModelSQL {
     public $Celular;
     public $Email;
     public $Direccion;
+    public $Estado;
     //public $Logo;
 
     function __construct() {
         $this->Id = 0;
-        //$this->Logo = "";
+        $this->Estado = 'ACT';
         $this->tabla = "cliente";
     }
 }

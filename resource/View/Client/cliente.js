@@ -1,4 +1,8 @@
 table = $("div[Listado] table");
+selections = [];
+op = "cliente";
+url_Local = getURL("_cliente");
+
 $(function () {
     $("div[Listado] table").bootstrapTable(TablePaginationDefault);
 });

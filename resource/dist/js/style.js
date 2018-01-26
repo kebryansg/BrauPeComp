@@ -11,6 +11,17 @@ Inputmask.extendAliases({
         placeholder: '0'
     }
 });
+/* Parse Float */
+function convertFloat(valor) {
+    value = parseFloat(valor.toString().replace(/[^\d\.\-]/g, ""));
+    return value;
+}
+/* Inputmask format*/
+function formatInputMask(value){
+    return Inputmask.format(value, "myDecimal");
+}
+
+
 
 
 var TablePaginationDefault = {
@@ -25,32 +36,9 @@ var TablePaginationDefault = {
     sidePagination: "server"
 };
 
-/*function alertEliminarRegistro(row) {
- $.confirm({
- theme: "modern",
- title: 'Eliminar Registro?',
- escapeKey: "cancelAction",
- content: 'Estás seguro de continuar?',
- autoClose: 'cancelAction|8000',
- buttons: {
- deleteUser: {
- text: 'Eliminar Registro',
- keys: ['enter'],
- action: function () {
- delet(row);
- }
- },
- cancelAction: {
- text: "Cancelar",
- action: function () {
- //$.alert('action is canceled');
- }
- }
- }
- });
- }*/
+
 function alertEliminarRegistros(row = selections) {
-    //!$.isArray(rows) ? [rows] : rows
+    values = !$.isArray(row) ? [row] : row;
     bandera = $.isArray(row);
     $.confirm({
         theme: "modern",
@@ -63,7 +51,7 @@ function alertEliminarRegistros(row = selections) {
                 text: bandera ? 'Eliminar Registros' : 'Eliminar Registro',
                 keys: ['enter'],
                 action: function () {
-                    deletes();
+                    deletes(values);
                     //$("div[Listado] table").bootstrapTable("refresh");
                 }
             },
@@ -77,7 +65,7 @@ function alertEliminarRegistros(row = selections) {
     });
 }
 
-function deletes() {
+function deletes(values) {
     $.ajax({
         url: url_Local,
         type: "POST",
@@ -85,7 +73,7 @@ function deletes() {
         data: {
             accion: "delete",
             op: op,
-            ids: selections
+            ids: values
         }
     });
     selections = [];
@@ -326,7 +314,7 @@ window.defaultEvent = {
         showRegistro();
     },
     'click li[name="delete"]': function (e, value, row, index) {
-        alert("delete");
+        alertEliminarRegistros(row.id);
     },
     'click li[name="view"]': function (e, value, row, index) {
         viewDetalle(row);
@@ -423,12 +411,8 @@ function getEstado(value) {
         case "ACT":
             return "Activo";
             break;
-        case "ANU":
-            return "Anulado";
-            break;
-
-        default:
-
+        case "INA":
+            return "Inactivo";
             break;
     }
 }

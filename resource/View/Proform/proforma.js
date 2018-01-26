@@ -47,6 +47,10 @@ window.editAccion = {
 };
 
 $(function () {
+    
+    /*var unformattedDate = Inputmask.format("12222.00", "myDecimal");
+    console.log("aqui");
+    console.log(unformattedDate);*/
 
     $("button[delete_local]").click(function (e) {
         div_id = $(this).closest("div[toolbar]").attr("id");
@@ -97,10 +101,10 @@ $(function () {
         }
     });
 
-    $("#detalleProforma").on('reorder-row.bs.table', function (e, data) {
-        console.log(data);
-        //$("#detalleProforma").bootstrapTable("refresh");
-    });
+//    $("#detalleProforma").on('reorder-row.bs.table', function (e, data) {
+//        console.log(data);
+//        //$("#detalleProforma").bootstrapTable("refresh");
+//    });
 
     $("table[init]").bootstrapTable(TablePaginationDefault);
 
@@ -170,20 +174,20 @@ function getDatos(form) {
 function calculoTb() {
     subtotal = 0;
     comision = 0;
-    ganancia = parseFloat($("input[name='ganancia']").val());
+    ganancia = convertFloat($("input[name='ganancia']").val());
 
     $.each($("#detalleProforma").bootstrapTable("getData"), function (i, row) {
-        subtotal += row.cantidad * row.precioProveedor;
-        comision += parseFloat(row.precioComision);
+        subtotal += convertFloat(row.cantidad) * convertFloat(row.precioProveedor);
+        comision += convertFloat(row.precioComision);
     });
 
 
-    $("#txtSubtotal").val(subtotal.toFixed(2));
+    $("#txtSubtotal").val(formatInputMask(subtotal));
     comision += ganancia;
-    $("#txtComision").val(comision.toFixed(2));
+    $("#txtComision").val(formatInputMask(comision));
     subtotal = (subtotal + (comision / 1.12));
     total = subtotal + (subtotal * 0.12);
-    $("#txtTotal").val(total.toFixed(2));
+    $("#txtTotal").val(formatInputMask(total));
 
 }
 
@@ -300,7 +304,7 @@ function viewDetalle(datos) {
 }
 
 function imask(value, rowData, index) {
-    return '<input myDecimal field="' + this.field + '" type="text" class="form-control input-sm" value="' + parseFloat(value).toFixed(2) + '">';
+    return '<input myDecimal field="' + this.field + '" type="text" class="form-control input-sm" value="' + formatInputMask(value) + '">';
 }
 
 function defaultDescripcion(value, rowData, index) {
@@ -325,7 +329,7 @@ window.event_imask = {
     },
     'change input[myDecimal]': function (e, value, row, index) {
         table = $(this).closest("table");
-        valor = parseFloat($(e.target).val());
+        valor = $(e.target).val();
         tr_index = $(this).closest("tr").attr("data-index");
         row_data = $(table).bootstrapTable("getData")[tr_index];
         row_data[$(e.target).attr("field")] = valor;

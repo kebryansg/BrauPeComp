@@ -48,6 +48,15 @@ switch ($accion) {
     case "get":
         $resultado = json_encode(ClienteDaoImp::get($_POST["idCliente"]));
         break;
+    case "delete":
+        switch ($op) {
+            case "cliente":
+                $Cliente = new Cliente();
+                $Cliente->Id =  $_POST["ids"];
+                ClienteDaoImp::delete($Cliente);
+                break;
+        }
+        break;
 }
 echo $resultado;
 

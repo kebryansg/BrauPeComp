@@ -1,4 +1,8 @@
 table = $("div[Listado] table");
+selections = [];
+op = "producto";
+url_Local = getURL("_producto");
+
 $(function () {
     $("div[Listado] table").bootstrapTable(TablePaginationDefault);
     //$("button[name='btn_add']").click();

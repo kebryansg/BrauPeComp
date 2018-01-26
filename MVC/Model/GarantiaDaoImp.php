@@ -22,8 +22,9 @@ class GarantiaDaoImp {
     public static function _list($params, &$count) {
         $conn = (new C_MySQL())->open();
         $banderapag = ($params["top"] > 0 ) ? "limit " . $params['top'] . " offset " . $params['pag'] : "";
+        $where = ($params["buscar"] != NULL) ? " and descripcion like '%" . $params["buscar"] . "%'" : "";
         //where estado = 'ACT'
-        $sql = "select SQL_CALC_FOUND_ROWS * from garantia $banderapag ;";
+        $sql = "select SQL_CALC_FOUND_ROWS * from garantia where estado = 'ACT' $where $banderapag ;";
 
         $list = C_MySQL::returnListAsoc($conn, $sql);
         $count = C_MySQL::row_count($conn);

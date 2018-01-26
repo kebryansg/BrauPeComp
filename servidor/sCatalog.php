@@ -14,7 +14,8 @@ switch ($accion) {
     case "list":
         $params = array(
             "top" => (isset($_POST["limit"])) ? $_POST["limit"] : 0,
-            "pag" => (isset($_POST["offset"])) ? $_POST["offset"] : 0
+            "pag" => (isset($_POST["offset"])) ? $_POST["offset"] : 0,
+            "buscar" => (isset($_POST["search"])) ? $_POST["search"] : NULL
         );
         $count = 0;
         switch ($op) {
@@ -45,12 +46,9 @@ switch ($accion) {
     case "delete":
         switch ($op) {
             case "garantia":
-                $Garantia = $mapper->map($json, new Garantia());
-                GarantiaDaoImp::save($Garantia);
-                $resultado = json_encode(array(
-                    "status" => TRUE,
-                    "Mensaje" => "Registrado Correctamente"
-                ));
+                $Garantia = new Garantia();
+                $Garantia->Id =  $_POST["ids"];
+                GarantiaDaoImp::delete($Garantia);
                 break;
         }
         break;

@@ -20,7 +20,7 @@
             init
             data-toolbar="#toolbar"
             data-ajax="loadProducto"
-            data-response-handler="responseHandler"
+            data-response-handler="responseHandlerSelect"
             >
             <thead>
                 <tr>
@@ -45,7 +45,7 @@
                         <label for="" class="control-label">Estado</label>
                         <select name="estado" class="form-control selectpicker" required>
                             <option value="ACT">Activo</option>
-                            <option value="ANU">Anulado</option>
+                            <option value="INA">Inactivo</option>
                         </select>
                     </div>
                 </div>

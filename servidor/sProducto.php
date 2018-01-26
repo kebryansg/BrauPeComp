@@ -43,6 +43,15 @@ switch ($accion) {
                 break;
         }
         break;
+    case "delete":
+        switch ($op) {
+            case "producto":
+                $Producto = new Producto();
+                $Producto->Id = $_POST["ids"];
+                ProductoDaoImp::delete($Producto);
+                break;
+        }
+        break;
 }
 echo $resultado;
 
