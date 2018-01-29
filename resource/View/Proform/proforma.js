@@ -47,10 +47,10 @@ window.editAccion = {
 };
 
 $(function () {
-    
+
     /*var unformattedDate = Inputmask.format("12222.00", "myDecimal");
-    console.log("aqui");
-    console.log(unformattedDate);*/
+     console.log("aqui");
+     console.log(unformattedDate);*/
 
     $("button[delete_local]").click(function (e) {
         div_id = $(this).closest("div[toolbar]").attr("id");
@@ -148,20 +148,23 @@ $(function () {
     });
 
     $("#ActualizarValores").click(function (e) {
+        //$("form[save]").serializeObject_KBSG();
+
         calculoTb();
     });
 
 });
 
 function getDatos(form) {
-    form_datos = JSON.parse($(form).serializeObject());
-    form_datos.fecha = formatSave(form_datos.fecha);
+//    form_datos = JSON.parse($(form).serializeObject_KBSG());
+    //form_datos = JSON.parse($(form).serializeObject());
+    //form_datos.fecha = formatSave(form_datos.fecha);
     datos = {
         url: $(form).attr("action"),
         dt: {
             accion: "save",
             op: $(form).attr("role"),
-            datos: JSON.stringify(form_datos),
+            datos: $(form).serializeObject_KBSG(), //JSON.stringify(form_datos),
             detalles: JSON.stringify($("#detalleProforma").bootstrapTable("getData")),
             detalles_delete: JSON.stringify($("button[delete_local]").data("ids"))
         }
@@ -174,7 +177,7 @@ function getDatos(form) {
 function calculoTb() {
     subtotal = 0;
     comision = 0;
-    ganancia = convertFloat($("input[name='ganancia']").val());
+    ganancia = $("input[name='ganancia']").getFloat();
 
     $.each($("#detalleProforma").bootstrapTable("getData"), function (i, row) {
         subtotal += convertFloat(row.cantidad) * convertFloat(row.precioProveedor);
@@ -235,6 +238,7 @@ function duplicate(datos) {
 }
 
 function edit(datos) {
+    console.log(datos);
     form = "div[Registro] form";
     $(form).data("id", datos.id);
     for (var clave in datos) {
@@ -271,6 +275,8 @@ function edit(datos) {
     $(form + " input[nombres]").val(response.nombres);
 
     $("input[myDecimal]").inputmask("myDecimal");
+
+    $("button[delete_local]").removeData("ids");
 
 
 }
@@ -329,7 +335,8 @@ window.event_imask = {
     },
     'change input[myDecimal]': function (e, value, row, index) {
         table = $(this).closest("table");
-        valor = $(e.target).val();
+        //valor =  $(e.target).val(); // convert Float 
+        valor = $(e.target).getFloat(); // convert Float 
         tr_index = $(this).closest("tr").attr("data-index");
         row_data = $(table).bootstrapTable("getData")[tr_index];
         row_data[$(e.target).attr("field")] = valor;

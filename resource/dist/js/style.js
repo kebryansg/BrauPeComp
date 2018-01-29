@@ -16,8 +16,49 @@ function convertFloat(valor) {
     value = parseFloat(valor.toString().replace(/[^\d\.\-]/g, ""));
     return value;
 }
+
+$.fn.getFloat = function () {
+    return parseFloat($(this).val().toString().replace(/[^\d\.\-]/g, ""));// $(component).val();
+};
+$.fn.serializeObject_KBSG = function () {
+    value = {};
+    components = $(this).find("[name]");
+    value["id"] = ($.isEmptyObject($(this).data("id"))) ? 0 : $(this).data("id");
+    $.each(components, function (i, component) {
+        tagName = $(component).prop("tagName");
+        name = $(component).attr("name");
+        val = "";
+        switch (tagName) {
+            case "SELECT":
+                val = $(component).selectpicker("val");
+                break;
+            case "INPUT":
+                tipo = $(component).attr("tipo");
+                console.log(tipo);
+                switch (tipo) {
+                    case "fecha":
+                     val = formatSave($(component).val());
+                     break;
+                    case "decimal":
+                        val = $(component).getFloat();
+                        break;
+
+                    default:
+                        val = $(component).val();
+                        break;
+                }
+                break;
+        }
+        value[name] = val;
+    });
+    console.log(value);
+    //return value;
+    return JSON.stringify(value);
+};
+
+
 /* Inputmask format*/
-function formatInputMask(value){
+function formatInputMask(value) {
     return Inputmask.format(value, "myDecimal");
 }
 
