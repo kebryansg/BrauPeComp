@@ -357,7 +357,7 @@ window.defaultEvent = {
     'click li[name="delete"]': function (e, value, row, index) {
         alertEliminarRegistros(row.id);
     },
-    'click li[name="view"]': function (e, value, row, index) {
+    'click button[name="view"]': function (e, value, row, index) {
         viewDetalle(row);
     },
     'click li[name="download"]': function (e, value, row, index) {

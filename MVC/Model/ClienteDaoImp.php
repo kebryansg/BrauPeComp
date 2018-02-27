@@ -20,6 +20,7 @@ class ClienteDaoImp {
         }
         $conn->close();
     }
+    
     public static function get($idCliente) {
         $conn = (new C_MySQL())->open();
         $sql = "select SQL_CALC_FOUND_ROWS * from cliente where id = $idCliente ;";

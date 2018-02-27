@@ -283,12 +283,13 @@ function edit(datos) {
 
 function BtnAccion(value, rowData, index) {
     return '<div class="btn-group" name="shows">' +
+            '<button name="view" class="btn btn-default btn-sm"><i class="fa fa-eye"></i> </button>' +
             '<button type="button" class="btn btn-default dropdown-toggle btn-sm"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
             ' <i class="fa fa-fw fa-align-justify"></i>' +
             '</button>' +
             '<ul class="dropdown-menu dropdown-menu-left" >' +
             '<li name="edit"><a href="#"> <i class="fa fa-edit"></i> Editar</a></li>' +
-            ' <li name="view" ><a href="#"> <i class="fa fa-tasks"></i> Vista Previa</a></li>' +
+            //' <li name="view" ><a href="#"> <i class="fa fa-tasks"></i> Vista Previa</a></li>' +
             ' <li name="duplicate" ><a href="#"> <i class="fa fa-copy"></i> Duplicar</a></li>' +
             ' <li name="download" ><a href="#"> <i class="fa fa-download"></i> Export</a></li>' +
             ' <li name="download-completo" ><a href="#"> <i class="fa fa-download"></i> Export(Detalle Completo)</a></li>' +

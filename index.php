@@ -189,7 +189,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <i class="fa fa-file-archive-o"></i> <span>Proformas</span>
                             </a>
                         </li>
-                        <li class="treeview">
+                        <!--<li class="treeview">
                             <a href="#"><i class="fa fa-folder-open"></i> <span>Reportes</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -199,7 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <li><a href="#">Link in level 2</a></li>
                                 <li><a href="#">Link in level 2</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
