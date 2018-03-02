@@ -30,7 +30,8 @@ class ProformaDaoImp {
                 join detalleproforma dtp on dtp.idproforma = p.id
                 join producto prod on prod.id = dtp.idproducto
                 where prod.descripcion like  CONCAT('%','". $params["buscar"] ."','%')  
-                GROUP BY p.id $banderapag ";
+                GROUP BY p.id
+                ORDER BY p.fecha desc $banderapag ";
 
         $list = C_MySQL::returnListAsoc($conn, $sql);
         $count = C_MySQL::row_count($conn);
