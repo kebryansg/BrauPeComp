@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__."/../init.php";
+
+require_once __DIR__ . "/../init.php";
 
 include_once SITE_ROOT . '/MVC/Model/ConfiguracionDaoImp.php';
 include_once SITE_ROOT . '/MVC/Controller/JsonMapper.php';

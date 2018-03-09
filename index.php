@@ -165,6 +165,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li class="header">Navegación Principal</li>
                         <!-- Optionally, you can add icons to the links -->
                         <li >
+                            <a href="MVC/View/App/usuario.php">
+                                <i class="fa fa-user-circle"></i> <span>Usuarios</span>
+                            </a>
+                        </li>
+                        <li >
                             <a href="MVC/View/Configure/configure.php">
                                 <i class="fa fa-gears"></i> <span>Configuración</span>
                             </a>

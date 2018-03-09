@@ -8,6 +8,9 @@ function responseHandlerSelect(res) {
 
 function getURL(url) {
     switch (url) {
+        case "_app":
+            return "servidor/sApp.php";
+            break;
         case "_cliente":
             return "servidor/sCliente.php";
             break;
@@ -23,7 +26,16 @@ function getURL(url) {
     }
 }
 
-
+function loadUsuarios(params){
+    json_data = {
+        data: $.extend({}, {
+            op: "usuario",
+            accion: "list"
+        }, params.data),
+        url: getURL("_app")
+    };
+    params.success(getJson(json_data));
+}
 
 function loadCliente(params) {
     json_data = {

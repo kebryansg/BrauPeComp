@@ -56,6 +56,52 @@ $.fn.serializeObject_KBSG = function () {
     return JSON.stringify(value);
 };
 
+/* Array Claves JSON */
+function JSON_Clave(obj) {
+    claves = [];
+    for (var clave in obj) {
+        claves.push(clave.toUpperCase());
+    }
+    return claves;
+}
+
+$.fn.edit = function (datos) {
+    claves = JSON_Clave(datos);
+    $(this).data("id", datos.id);
+    $.each($(this).find("[name]"), function (i, component) {
+        name = $(component).attr("name");
+        if ($.inArray(name.toUpperCase(), claves) !== -1) {
+            tagName = $(component).prop("tagName");
+            switch (tagName) {
+                case "SELECT":
+                    $(component).selectpicker("val", datos[name]);
+                    break;
+                case "TEXTAREA":
+                    val = $(component).val(datos[name]);
+                    break;
+                case "INPUT":
+                    tipo = $(component).attr("data-tipo");
+                    switch (tipo) {
+                        case "myDecimal":
+                            $(component).setFloat(datos[name]);
+                            break;
+                        case "fechaView":
+                            $(component).val(formatView(datos[name]).toUpperCase());
+                            break;
+                        case "fecha":
+                            $(component).datepicker("update", fechaMoment(datos[name]).toDate());
+                            break;
+                        default:
+                            $(component).val(datos[name]);
+                            break;
+                    }
+                    break;
+            }
+
+        }
+    });
+};
+
 
 /* Inputmask format*/
 function formatInputMask(value) {
