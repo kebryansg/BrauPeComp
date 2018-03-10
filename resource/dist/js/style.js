@@ -168,6 +168,14 @@ function deletes(values) {
 }
 
 $(function () {
+    
+    $("#cerrarSesion").click(function(e){
+        e.preventDefault();
+        $.post("servidor/sApp.php",{accion: "close"},function(){
+            location.href = "login.php";
+        });
+        
+    });
 
 
     /* Boton Eliminar */

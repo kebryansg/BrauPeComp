@@ -1,11 +1,19 @@
-<!DOCTYPE html>
 <?php
+session_start();
+if (!isset($_SESSION["login"])) {
+    header("location: login.php");
+}
+
+$user = $_SESSION["login"]["user"];
+//var_dump($user);
+
+
 require_once "init.php";
 include_once 'MVC/Model/ConfiguracionDaoImp.php';
 $logo = "resource/ConfigIMG/logo.png";
 $datos = ConfiguracionDaoImp::get()[0];
 ?>
-
+<!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
@@ -115,7 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <img src="<?php echo $logo; ?>" class="user-image" alt="User Image">
                                     <!--<img src="resource/Plantilla/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">-->
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs">Braulio</span>
+                                    <span class="hidden-xs"><?php echo $user["u"]; ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -123,7 +131,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <img src="<?php echo $logo; ?>" class="img-circle" alt="User Image">
 
                                         <p>
-                                            Braulio - Admin
+                                            <?php echo $user["u"] . ' - ' . (($user["idrol"] == "1") ? "Admin" : "User"); ?>
                                             <!--<small>Member since Nov. 2012</small>-->
                                         </p>
                                     </li>
@@ -133,7 +141,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <a href="#" class="btn btn-default btn-flat">Profile</a>
                                         </div>-->
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Cerrar Sesión</a>
+                                            <a href="#" id="cerrarSesion" class="btn btn-default btn-flat">Cerrar Sesión</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -154,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <img src="<?php echo $logo; ?>" width="160"  alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Braulio</p>
+                            <p> <?php echo $user["u"]; ?> </p>
                             <!-- Status -->
                             <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
                         </div>
@@ -164,16 +172,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">Navegación Principal</li>
                         <!-- Optionally, you can add icons to the links -->
+                        
+                        <?php if($user["idrol"] == "1"){ ?>
                         <li >
                             <a href="MVC/View/App/usuario.php">
                                 <i class="fa fa-user-circle"></i> <span>Usuarios</span>
                             </a>
                         </li>
+                        
                         <li >
                             <a href="MVC/View/Configure/configure.php">
                                 <i class="fa fa-gears"></i> <span>Configuración</span>
                             </a>
                         </li>
+                        <?php } ?>
                         <li >
                             <a href="MVC/View/Client/cliente.php">
                                 <i class="fa fa-users"></i> <span>Clientes</span>

@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (isset($_SESSION["login"])) {
+    header("location: .");
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,8 +20,6 @@
         <link rel="stylesheet" href="resource/Plantilla/Ionicons/css/ionicons.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="resource/Plantilla/dist/css/AdminLTE.css">
-        <!-- iCheck -->
-        <link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,14 +40,14 @@
             <div class="login-box-body">
                 <p class="login-box-msg">Comienza tu sesión</p>
 
-                <form action="../../index2.html" method="post">
+                <form action="_administracion" role="login">
                     <div class="form-group has-feedback">
-                        <input type="email" class="form-control" placeholder="Usuario">
+                        <input u type="text" class="form-control" placeholder="Usuario" required>
                         <!--<span class="glyphicon glyphicon-user form-control-feedback"></span>-->
                         <span class="fa fa-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="Contraseña">
+                        <input p type="password" class="form-control" placeholder="Contraseña" required>
                         <!--<span class="glyphicon glyphicon-lock form-control-feedback"></span>-->
                         <span class="fa fa-lock form-control-feedback"></span>
                     </div>
@@ -62,5 +66,7 @@
         <script src="resource/Plantilla/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="resource/Plantilla/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Resource -->
+        <script src="resource/dist/js/login.js"></script>
     </body>
 </html>

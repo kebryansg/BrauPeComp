@@ -8,12 +8,12 @@ class AppDaoImp {
     public static function login($params) {
         $conn = (new C_MySQL())->open();
 
-        $sql = "SELECT * FROM usuario where estado = 'ACT' and u = '" . $params["user"] . "' and p = '" . sha1($params["pass"]) . "';";
+        $sql = "SELECT * FROM usuario where estado = 'ACT' and UPPER(u) = UPPER('" . $params["user"] . "') and DECODE(p,'pass') = '" . ($params["pass"]) . "';";
 
         $usuarios = C_MySQL::returnListAsoc($conn, $sql);
         $result = array(
-            "status" => (count($usuarios) > 0),
-            "usuario" => (count($usuarios) > 0) ? $usuarios[0] : NULL
+            "status" => (count($usuarios) == 1),
+            "usuario" => (count($usuarios) == 1) ? $usuarios[0] : NULL
         );
 
         $conn->close();
@@ -35,9 +35,9 @@ class AppDaoImp {
     public static function _list($params) {
         $conn = (new C_MySQL())->open();
         $banderapag = ($params["top"] > 0 ) ? "limit " . $params['top'] . " offset " . $params['pag'] : "";
-        $where = ($params["buscar"] != NULL) ? " where a like '%" . $params["buscar"] . "%' " : "";
+        $where = ($params["buscar"] != NULL) ? " where u like '%" . $params["buscar"] . "%' " : "";
         //where estado = 'ACT'
-        $sql = "select SQL_CALC_FOUND_ROWS * from usuario $where $banderapag ;";
+        $sql = "select SQL_CALC_FOUND_ROWS id, u, DECODE(p,'pass') p, estado,idrol from usuario $where $banderapag ;";
 
         $dts = array(
             "rows" => C_MySQL::returnListAsoc($conn, $sql),
