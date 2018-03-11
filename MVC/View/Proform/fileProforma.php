@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION["login"])) {
+    header("location: ../../../login.php");
+}
+?>
 <!DOCTYPE html>
 <link rel="stylesheet" href="../../../resource/Plantilla/bootstrap/dist/css/bootstrap.min.css">
 
