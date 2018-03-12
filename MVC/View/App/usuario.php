@@ -26,7 +26,7 @@
                 <tr>
                     <th data-field="state" data-checkbox="true"></th>
                     <th data-field="u">Usuario</th>
-                    <th data-field="estado">Estado</th>
+                    <th data-field="estado" data-formatter="defaultEstado">Estado</th>
                     <th data-field="accion" class="col-md-1" data-align="center" data-formatter="defaultBtnAccion" data-events="defaultEvent" >Acción</th>
                 </tr>
             </thead>

@@ -22,12 +22,21 @@ class DetalleProformaDaoImp {
         //$where = ($params["buscar"] != NULL) ? "where descripcion like '%" . $params["buscar"] . "%'" : "";
 
         //where estado = 'ACT'
-        $sql = "select SQL_CALC_FOUND_ROWS * from viewDetalleProforma where idProforma = $idProforma ;";
+        $sql = "select * from viewdetalleproforma where idProforma = $idProforma ;";
 
         $list = C_MySQL::returnListAsoc($conn, $sql);
+//        $result = array(
+//            "sql" => $sql,
+//            "resultado" => $list,
+//            "con" => $conn
+//        );
+        
+        
+        
         //$count = C_MySQL::row_count($conn);
         $conn->close();
         return $list;
+//        return $result;
     }
     
     public static function _removeMultiple($ids) {
